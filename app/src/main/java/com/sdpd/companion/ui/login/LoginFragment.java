@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +23,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
 
     public LoginFragment() {
-        // Required empty public constructor
         super(R.layout.fragment_login);
     }
 
@@ -64,8 +63,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
             Boolean successfulLogin = mLoginActivityViewModel.handleSignIn(data);
-            if(successfulLogin)
+            if(successfulLogin) {
+                final FragmentTransaction transaction = getFragmentManager().beginTransaction().setReorderingAllowed(true);
+                transaction.replace(R.id.fragment_container_view, ReportGroupFragment.class, null);
+                transaction.commit();
                 Toast.makeText(getActivity(), "Login succeeded!", Toast.LENGTH_SHORT).show();
+            }
             else
                 Toast.makeText(getActivity(), "Please sign in with your institute email", Toast.LENGTH_SHORT).show();
         } else {
