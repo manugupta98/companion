@@ -1,10 +1,13 @@
 package com.sdpd.companion.ui.group;
 
-public class Group {
+import java.io.Serializable;
+
+public class Group implements Serializable {
     public String groupName;
     public String groupDes;
     public String groupCode;
     public String groupTopic;
+    public String groupKey;
 
     public Group(){
 
@@ -14,5 +17,12 @@ public class Group {
         this.groupDes = groupDes;
         this.groupCode = groupCode;
         this. groupTopic = groupTopic;
+        this.groupKey = "";
+    }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return this.groupName.toString();
     }
 }

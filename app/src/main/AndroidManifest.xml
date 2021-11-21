@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Companion">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.group.TestActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

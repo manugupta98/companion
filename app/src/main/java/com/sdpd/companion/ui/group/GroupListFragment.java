@@ -28,9 +28,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.sdpd.companion.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 public class GroupListFragment extends Fragment {
@@ -38,10 +40,12 @@ public class GroupListFragment extends Fragment {
     private FloatingActionButton fab;
     private View groupfragmentview;
     private ListView list_view;
-    private ArrayAdapter<String> arrayAdapter;
-    private ArrayList<String> Listofgroups = new ArrayList<>();
+    private ArrayAdapter<Group> arrayAdapter;
+    private ArrayList<Group> Listofgroups = new ArrayList<>();
+    private ArrayList<String> ListofgroupNames = new ArrayList<>();
     private DatabaseReference groupref;
     private String searchBy;
+    private String query;
 
     public GroupListFragment() {
         super(R.layout.fragment_group_list);
@@ -52,6 +56,7 @@ public class GroupListFragment extends Fragment {
         groupfragmentview = inflater.inflate(R.layout.fragment_group_list, container, false);
         groupref = FirebaseDatabase.getInstance().getReference().child("Groups");
         searchBy = getArguments().getString("searchBy");
+        query = getArguments().getString("query");
         Initializefields();
         retrieveanddisplay();
         list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -61,7 +66,7 @@ public class GroupListFragment extends Fragment {
 
                 GroupChatFragment groupChatFragment = new GroupChatFragment();
                 Bundle args = new Bundle();
-                args.putString("chosenGroup", (String) adapterView.getItemAtPosition(i));
+                args.putSerializable("selectedGroup", (Serializable) adapterView.getItemAtPosition(i));
                 groupChatFragment.setArguments(args);
                 // Begin the transaction
                 FragmentTransaction ft = getParentFragmentManager().beginTransaction();
@@ -88,7 +93,7 @@ public class GroupListFragment extends Fragment {
 
     private void Initializefields() {
         list_view=(ListView)groupfragmentview.findViewById(R.id.List_view);
-        arrayAdapter=new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,Listofgroups);
+        arrayAdapter=new ArrayAdapter<Group>(getContext(),android.R.layout.simple_list_item_1,Listofgroups);
         list_view.setAdapter(arrayAdapter);
     }
 
@@ -96,15 +101,25 @@ public class GroupListFragment extends Fragment {
         groupref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Set<String> set=new HashSet<>();
+                Listofgroups.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Group group = snapshot.getValue(Group.class);
-                    if(group.groupTopic.equals(searchBy))
-                        set.add(group.groupName);
-                    Log.d("tag",group.groupTopic + " " + searchBy);
+                    group.groupKey = snapshot.getKey();
+                    Log.d("key",snapshot.getKey());
+                    if(searchBy.equals("Topic") && group.groupTopic.equals(query))
+                    {
+                        Listofgroups.add(group);
+                    }
+                    if(searchBy.equals("Group Code") && group.groupCode.equals(query))
+                    {
+                        Listofgroups.add(group);
+                    }
+                    if(searchBy.equals("Group Name") && group.groupName.equals(query))
+                    {
+                        Listofgroups.add(group);
+                    }
+                   // Log.d("tag",group.groupTopic + " " + searchBy);
                 }
-                Listofgroups.clear();
-                Listofgroups.addAll(set);
                 arrayAdapter.notifyDataSetChanged();
             }
 

@@ -10,15 +10,20 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.sdpd.companion.R;
 
 public class GroupPreferencesFragment extends Fragment {
 
-    public EditText searchBy;
+    public EditText queryEditText;
     public Button submitButton;
+    String searchBy;
+    String query;
     public GroupPreferencesFragment() {
     }
 
@@ -30,14 +35,34 @@ public class GroupPreferencesFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        searchBy = (EditText) getView().findViewById(R.id.searchEditText);
+        queryEditText = (EditText) getView().findViewById(R.id.searchEditText);
         submitButton = (Button) getView().findViewById(R.id.searchButton);
+        Spinner spinner = (Spinner) getView().findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.options_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                searchBy = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 GroupListFragment groupListFragment = new GroupListFragment();
                 Bundle args = new Bundle();
-                args.putString("searchBy", searchBy.getText().toString());
+                args.putString("query", queryEditText.getText().toString());
+                args.putString("searchBy", searchBy);
+
                 groupListFragment.setArguments(args);
                 // Begin the transaction
                 FragmentTransaction ft = getParentFragmentManager().beginTransaction();
