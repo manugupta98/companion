@@ -10,11 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Companion">
         <activity
-            android:name=".ui.login.LoginActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.group.TestActivity"
-            android:label="@string/app_name">
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
