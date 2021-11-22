@@ -49,8 +49,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public void onStart() {
         super.onStart();
 
-        if(mLoginActivityViewModel.getAccount() == null) {
-            //check if null and send intents accordingly
+        if(mLoginActivityViewModel.getAccount() != null) {
+            changeUI();
         }
     }
 
@@ -64,10 +64,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             // a listener.
             Boolean successfulLogin = mLoginActivityViewModel.handleSignIn(data);
             if(successfulLogin) {
-                final FragmentTransaction transaction = getFragmentManager().beginTransaction().setReorderingAllowed(true);
-                transaction.replace(R.id.fragment_container_view, ReportGroupFragment.class, null);
-                transaction.commit();
-                Toast.makeText(getActivity(), "Login succeeded!", Toast.LENGTH_SHORT).show();
+                changeUI();
             }
             else
                 Toast.makeText(getActivity(), "Please sign in with your institute email", Toast.LENGTH_SHORT).show();
@@ -80,5 +77,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         Intent signInIntent = mLoginActivityViewModel.getSignInIntent();
         startActivityForResult(signInIntent, 200);
+    }
+
+    private void changeUI() {
+        final FragmentTransaction transaction = getFragmentManager().beginTransaction().setReorderingAllowed(true);
+        transaction.replace(R.id.fragment_container_view, ReportGroupFragment.class, null);
+        transaction.commit();
+        Toast.makeText(getActivity(), "Login succeeded!", Toast.LENGTH_SHORT).show();
     }
 }
