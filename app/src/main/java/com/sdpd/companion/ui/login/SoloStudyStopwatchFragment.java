@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
 import com.sdpd.companion.R;
+import com.sdpd.companion.data.repository.SoloStudyRepository;
 import com.sdpd.companion.viewModel.SoloStudyViewModel;
 
 import java.util.Locale;
@@ -112,6 +113,7 @@ public class SoloStudyStopwatchFragment extends Fragment {
         endSession.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                soloStudyViewModel.addAppSpentTime(soloStudyViewModel.getStopWatchSeconds());
                 soloStudyViewModel.setSearchedText("");
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();

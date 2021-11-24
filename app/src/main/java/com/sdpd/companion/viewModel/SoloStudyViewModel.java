@@ -2,11 +2,20 @@ package com.sdpd.companion.viewModel;
 
 import androidx.lifecycle.ViewModel;
 
+import com.sdpd.companion.data.repository.SoloStudyRepository;
+
 public class SoloStudyViewModel extends ViewModel {
+
     String searchedText;
     int stopWatchSeconds;
     boolean stopWatchRunning,stopWatchWasRunning,timerRunning;
     int timerSeconds,timerUserHours,timerUserMinutes,timerUserSeconds;
+
+
+    public void addAppSpentTime(int timeToAdd){
+        SoloStudyRepository soloStudyRepository=new SoloStudyRepository();
+        soloStudyRepository.updateTimeSolo(timeToAdd);
+    }
 
     public String getSearchedText() {
         return searchedText;

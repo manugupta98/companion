@@ -81,8 +81,6 @@ public class SoloStudyTimerFragment extends Fragment {
         soloStudyViewModel=new ViewModelProvider(requireActivity()).get(SoloStudyViewModel.class);
         getActivity().setTitle(soloStudyViewModel.getSearchedText());
 
-
-
         hours=view.findViewById(R.id.hours);
         minutes=view.findViewById(R.id.minutes);
         seconds=view.findViewById(R.id.seconds);
@@ -98,7 +96,6 @@ public class SoloStudyTimerFragment extends Fragment {
                 minutes.setKeyListener(null);
                 seconds.setKeyListener(null);
                 startTimerButton.setEnabled(false);
-
 
                 int milliSeconds=0;
                 if(soloStudyViewModel.isTimerRunning()){
@@ -135,7 +132,7 @@ public class SoloStudyTimerFragment extends Fragment {
                     public void onFinish() {
                         progress.setProgress(0);
                         progressBarText.setText("Session Completed");
-                        //soloStudyViewModel.setTimerRunning(false);
+                        soloStudyViewModel.addAppSpentTime(ms/1000);
                         startTimerButton.setClickable(false);
                     }
                 }.start();

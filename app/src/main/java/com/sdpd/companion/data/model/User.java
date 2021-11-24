@@ -2,6 +2,9 @@ package com.sdpd.companion.data.model;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.util.Date;
+import java.util.HashMap;
+
 @IgnoreExtraProperties
 public class User {
 
