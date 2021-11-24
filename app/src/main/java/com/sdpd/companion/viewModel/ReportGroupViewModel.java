@@ -36,6 +36,6 @@ public class ReportGroupViewModel extends ViewModel {
     private void writeNewReport(String userId, String email, String reportGroupId, String reportGroupDescription) {
         Report report = new Report(email, reportGroupId, reportGroupDescription);
 
-        mDatabase.child("Reports").child(userId).setValue(report);
+        mDatabase.child("Reports").child(userId).push().setValue(report);
     }
 }
