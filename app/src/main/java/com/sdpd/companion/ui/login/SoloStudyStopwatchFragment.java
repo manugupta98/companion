@@ -115,6 +115,7 @@ public class SoloStudyStopwatchFragment extends Fragment {
             public void onClick(View v) {
                 soloStudyViewModel.addAppSpentTime(soloStudyViewModel.getStopWatchSeconds());
                 soloStudyViewModel.setSearchedText("");
+                soloStudyViewModel.setStopWatchSeconds(0);
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.replace(R.id.fragment_container_view, SoloStudyMainFragment.class, null)

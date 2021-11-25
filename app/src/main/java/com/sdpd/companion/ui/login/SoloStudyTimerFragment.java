@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
@@ -92,10 +93,8 @@ public class SoloStudyTimerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // int h=Integer.parseInt(hours.toString());
-                hours.setKeyListener(null);
-                minutes.setKeyListener(null);
-                seconds.setKeyListener(null);
-                startTimerButton.setEnabled(false);
+
+
 
                 int milliSeconds=0;
                 if(soloStudyViewModel.isTimerRunning()){
@@ -103,39 +102,48 @@ public class SoloStudyTimerFragment extends Fragment {
                 }
                 else{
                     milliSeconds=(Integer.parseInt(hours.getText().toString())*3600000+Integer.parseInt(minutes.getText().toString())*60000+Integer.parseInt(seconds.getText().toString())*1000);
+
+
+
                     soloStudyViewModel.setTimerSeconds(milliSeconds);
                     soloStudyViewModel.setTimerRunning(true);
                 }
-                Log.d("message","1 "+soloStudyViewModel.isTimerRunning());
 
-                final int ms=milliSeconds;
-                Log.d("message", String.valueOf(milliSeconds));
-                new CountDownTimer(ms,1000){
-                    public void onTick(long millisUntilFinished) {
-                        // Used for formatting digit to be in 2 digits only
-                        NumberFormat f = new DecimalFormat("00");
-                        long hour = (millisUntilFinished / 3600000) % 24;
-                        long min = (millisUntilFinished / 60000) % 60;
-                        long sec = (millisUntilFinished / 1000) % 60;
-                        hours.setText(f.format(hour));
-                        minutes.setText(f.format(min));
-                        seconds.setText(f.format(sec));
+                if(milliSeconds==0){
+                    Toast.makeText(getActivity().getApplicationContext(),"Please enter  time",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    final int ms=milliSeconds;
 
-                        soloStudyViewModel.setTimerUserHours((int)hour);
-                        soloStudyViewModel.setTimerUserMinutes((int)min);
-                        soloStudyViewModel.setTimerUserSeconds((int)sec);
+                    new CountDownTimer(ms,1000){
+                        public void onTick(long millisUntilFinished) {
+                            // Used for formatting digit to be in 2 digits only
+                            NumberFormat f = new DecimalFormat("00");
+                            long hour = (millisUntilFinished / 3600000) % 24;
+                            long min = (millisUntilFinished / 60000) % 60;
+                            long sec = (millisUntilFinished / 1000) % 60;
+                            hours.setText(f.format(hour));
+                            minutes.setText(f.format(min));
+                            seconds.setText(f.format(sec));
 
-                        progress.setProgress((int)((double)millisUntilFinished/ms*100));
-                        progressBarText.setText((int)((double)millisUntilFinished/ms*100)+"%");
-                    }
-                    // When the task is over it will print 00:00:00 there
-                    public void onFinish() {
-                        progress.setProgress(0);
-                        progressBarText.setText("Session Completed");
-                        soloStudyViewModel.addAppSpentTime(ms/1000);
-                        startTimerButton.setClickable(false);
-                    }
-                }.start();
+                            soloStudyViewModel.setTimerUserHours((int)hour);
+                            soloStudyViewModel.setTimerUserMinutes((int)min);
+                            soloStudyViewModel.setTimerUserSeconds((int)sec);
+
+                            progress.setProgress((int)((double)millisUntilFinished/ms*100));
+                            progressBarText.setText((int)((double)millisUntilFinished/ms*100)+"%");
+                        }
+                        // When the task is over it will print 00:00:00 there
+                        public void onFinish() {
+                            progress.setProgress(0);
+                            progressBarText.setText("Session Completed");
+                            soloStudyViewModel.addAppSpentTime(ms/1000);
+
+                            startTimerButton.setClickable(false);
+                        }
+                    }.start();
+                }
+
             }
         });
 
