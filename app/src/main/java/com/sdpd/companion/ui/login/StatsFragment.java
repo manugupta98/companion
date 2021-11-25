@@ -1,5 +1,6 @@
 package com.sdpd.companion.ui.login;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,6 +16,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
@@ -23,6 +25,7 @@ import com.sdpd.companion.R;
 import com.sdpd.companion.viewModel.StatsViewModel;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class StatsFragment extends Fragment implements OnChartValueSelectedListener {
 
@@ -30,6 +33,8 @@ public class StatsFragment extends Fragment implements OnChartValueSelectedListe
     private BarChart weeklyBarchart;
     private StatsViewModel mStatsViewModel;
     private ArrayList<PieEntry> pieEntries;
+    private ArrayList<BarEntry> barEntries;
+    private ArrayList<String> barAxisLabels;
 
     public StatsFragment() {
         // Required empty public constructor
@@ -74,27 +79,16 @@ public class StatsFragment extends Fragment implements OnChartValueSelectedListe
     }
 
     private void showBarChart(){
-        ArrayList<Double> valueList = new ArrayList<Double>();
-        ArrayList<BarEntry> entries = new ArrayList<>();
-
-        //input data
-        for(int i = 1; i < 6; i++){
-            valueList.add(i * 100.0);
-        }
-
-        //fit the data into a bar
-        for (int i = 0; i < valueList.size(); i++) {
-            BarEntry barEntry = new BarEntry(i, valueList.get(i).floatValue());
-            entries.add(barEntry);
-        }
-
-        BarDataSet barDataSet = new BarDataSet(entries, "");
-        barDataSet.setValueTextSize(20f);
-
+        barEntries = mStatsViewModel.getWeeklyStats();
+        barAxisLabels = mStatsViewModel.getAxisLabels(barEntries.size());
+        BarDataSet barDataSet = new BarDataSet(barEntries, "");
+        barDataSet.setValueTextSize(15f);
+        barDataSet.setColors(Color.DKGRAY, Color.LTGRAY);
+        barDataSet.setStackLabels(new String[] {"Study", "Others"});
         BarData data = new BarData(barDataSet);
+        weeklyBarchart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(barAxisLabels));
         weeklyBarchart.setData(data);
         weeklyBarchart.getDescription().setEnabled(false);
-        weeklyBarchart.getLegend().setEnabled(false);
         weeklyBarchart.animateXY(1000, 1000);
         weeklyBarchart.invalidate();
     }
