@@ -43,7 +43,7 @@ public class StatsMenuFragment extends Fragment implements View.OnClickListener 
     public void onClick(View view) {
         final FragmentTransaction transaction = getFragmentManager().beginTransaction().setReorderingAllowed(true);
         if(view.getId() == R.id.studyStats) {
-            transaction.replace(R.id.fragment_container_view, StudyStatsFragment.class, null);
+            transaction.replace(R.id.fragment_container_view, StatsFragment.class, null);
             transaction.addToBackStack(null);
             transaction.commit();
         } else if (view.getId() == R.id.otherStats) {

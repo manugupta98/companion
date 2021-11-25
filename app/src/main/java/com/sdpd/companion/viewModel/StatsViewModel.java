@@ -2,81 +2,31 @@ package com.sdpd.companion.viewModel;
 
 import androidx.lifecycle.ViewModel;
 
-import com.jjoe64.graphview.series.BarGraphSeries;
-import com.jjoe64.graphview.series.DataPoint;
+import com.github.mikephil.charting.data.PieEntry;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class StatsViewModel extends ViewModel {
 
-    public BarGraphSeries<DataPoint> getDailySoloSeries() {
-        return new BarGraphSeries<>(new DataPoint[] {
-                new DataPoint(0.7, 5)
-        });
+    public ArrayList<PieEntry> getDailyStats() {
+        ArrayList<PieEntry> pieEntries = new ArrayList<>();
+        Map<String, Integer> typeAmountMap = new HashMap<>();
+        typeAmountMap.put("Toys",200);
+        typeAmountMap.put("Snacks",230);
+        typeAmountMap.put("Clothes",100);
+        typeAmountMap.put("Stationary",500);
+        typeAmountMap.put("Phone",50);
+
+        //input data and fit data into pie chart entry
+        for(String type: typeAmountMap.keySet()){
+            pieEntries.add(new PieEntry(typeAmountMap.get(type).floatValue(), type));
+        }
+
+        return pieEntries;
     }
 
-    public BarGraphSeries<DataPoint> getDailyGroupSeries() {
-        return new BarGraphSeries<>(new DataPoint[] {
-                new DataPoint(2.3, 4),
-        });
-    }
-
-    public Double getTotalDailyTimeSpent() {
-        return 7.0;
-    }
-
-    public BarGraphSeries<DataPoint> getWeeklySoloSeries() {
-        Calendar calendar = Calendar.getInstance();
-        Date d1 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d2 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d3 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d4 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d5 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d6 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d7 = calendar.getTime();
-
-        return new BarGraphSeries<>(new DataPoint[] {
-                new DataPoint(d1, 5),
-                new DataPoint(d2, 7),
-                new DataPoint(d3, 8),
-                new DataPoint(d4, 10),
-                new DataPoint(d5, 10),
-                new DataPoint(d6, 11),
-                new DataPoint(d7, 12)
-        });
-    }
-
-    public BarGraphSeries<DataPoint> getWeeklyGroupSeries() {
-        Calendar calendar = Calendar.getInstance();
-        Date d1 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d2 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d3 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d4 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d5 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d6 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d7 = calendar.getTime();
-
-        return new BarGraphSeries<>(new DataPoint[] {
-                new DataPoint(d1, 5),
-                new DataPoint(d2, 7),
-                new DataPoint(d3, 8),
-                new DataPoint(d4, 10),
-                new DataPoint(d5, 10),
-                new DataPoint(d6, 11),
-                new DataPoint(d7, 12)
-        });
-    }
 }
