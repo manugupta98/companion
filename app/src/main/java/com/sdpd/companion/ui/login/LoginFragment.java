@@ -81,7 +81,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private void changeUI() {
         final FragmentTransaction transaction = getFragmentManager().beginTransaction().setReorderingAllowed(true);
-        transaction.replace(R.id.fragment_container_view, StatsFragment.class, null);
+        transaction.replace(R.id.fragment_container_view, MenuFragment.class, null);
         transaction.commit();
         Toast.makeText(getActivity(), "Login succeeded!", Toast.LENGTH_SHORT).show();
     }

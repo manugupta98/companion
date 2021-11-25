@@ -1,5 +1,7 @@
 package com.sdpd.companion.viewModel;
 
+import android.content.Context;
+
 import androidx.lifecycle.ViewModel;
 
 import com.sdpd.companion.data.repository.SoloStudyRepository;
@@ -10,10 +12,14 @@ public class SoloStudyViewModel extends ViewModel {
     int stopWatchSeconds;
     boolean stopWatchRunning,stopWatchWasRunning,timerRunning;
     int timerSeconds,timerUserHours,timerUserMinutes,timerUserSeconds;
+    private Context context;
 
+    public void init(Context context) {
+        this.context = context;
+    }
 
     public void addAppSpentTime(int timeToAdd){
-        SoloStudyRepository soloStudyRepository=new SoloStudyRepository();
+        SoloStudyRepository soloStudyRepository=new SoloStudyRepository(context);
         soloStudyRepository.updateTimeSolo(timeToAdd);
     }
 

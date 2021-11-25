@@ -58,8 +58,10 @@ public class ReportGroupFragment extends Fragment implements View.OnClickListene
 
         mReportGroupFragment.report(reportGroupId, reportGroupDescription);
         Toast.makeText(getActivity(), "Report submitted!", Toast.LENGTH_SHORT).show();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction().setReorderingAllowed(true);
-        transaction.replace(R.id.fragment_container_view, new ReportGroupFragment(), null);
-        transaction.commit();
+
+        reportId.getEditText().setText("");
+        reportId.clearFocus();
+        reportDescription.clearFocus();
+        reportDescription.getEditText().setText("");
     }
 }

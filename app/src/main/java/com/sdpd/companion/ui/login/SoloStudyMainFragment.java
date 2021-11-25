@@ -1,5 +1,6 @@
 package com.sdpd.companion.ui.login;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -42,7 +43,7 @@ public class SoloStudyMainFragment extends Fragment {
         TextInputEditText editText;
         RadioGroup radioGroup;
         SoloStudyViewModel soloStudyViewModel=new ViewModelProvider(requireActivity()).get(SoloStudyViewModel.class);
-
+        soloStudyViewModel.init(getActivity());
         button=view.findViewById(R.id.startSessionButton);
         editText=view.findViewById(R.id.studyTopic);
         radioGroup=view.findViewById(R.id.radioGroup);
@@ -61,13 +62,13 @@ public class SoloStudyMainFragment extends Fragment {
                     if(selectedOption.equals("Stopwatch")){
                         ft.replace(R.id.fragment_container_view, SoloStudyStopwatchFragment.class, null)
                                 .setReorderingAllowed(true)
-                                .addToBackStack("SoloStudyMain")
+                                .addToBackStack("Solo")
                                 .commit();
                     }
                     else{
                         ft.replace(R.id.fragment_container_view, SoloStudyTimerFragment.class, null)
                                 .setReorderingAllowed(true)
-                                .addToBackStack("SoloStudyMain")
+                                .addToBackStack("Solo")
                                 .commit();
                     }
 

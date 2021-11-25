@@ -117,9 +117,12 @@ public class SoloStudyStopwatchFragment extends Fragment {
                 soloStudyViewModel.setSearchedText("");
                 soloStudyViewModel.setStopWatchSeconds(0);
                 FragmentManager fm = getActivity().getSupportFragmentManager();
+                fm.popBackStack();
+                fm.popBackStack();
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.replace(R.id.fragment_container_view, SoloStudyMainFragment.class, null)
                         .setReorderingAllowed(true)
+                        .addToBackStack(null)
                         .commit();
             }
         });

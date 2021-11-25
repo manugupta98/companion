@@ -156,8 +156,11 @@ public class SoloStudyTimerFragment extends Fragment {
                 soloStudyViewModel.setSearchedText("");
                 FragmentManager fm=getActivity().getSupportFragmentManager();
                 FragmentTransaction ft=fm.beginTransaction();
+                fm.popBackStack();
+                fm.popBackStack();
                 ft.replace(R.id.fragment_container_view, SoloStudyMainFragment.class, null)
                         .setReorderingAllowed(true)
+                        .addToBackStack(null)
                         .commit();
             }
         });
