@@ -19,7 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.sdpd.companion.R;
 
 import java.util.HashMap;
-
+import android.view.Menu;
+import android.view.MenuItem;
 public class TestActivity extends AppCompatActivity {
 
     FirebaseDatabase db = FirebaseDatabase.getInstance();
@@ -32,7 +33,7 @@ public class TestActivity extends AppCompatActivity {
         // Begin the transaction
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         // Replace the contents of the container with the new fragment
-        ft.replace(R.id.your_placeholder, new GroupPreferencesFragment());
+        ft.replace(R.id.your_placeholder, new GroupsFragment());
         // or ft.add(R.id.your_placeholder, new FooFragment());
         // Complete the changes added above
         ft.commit();

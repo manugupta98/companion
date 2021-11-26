@@ -2,7 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <include
+        android:id="@+id/group_chat_bar_layout"
+        layout="@layout/group_chat_appbar">
+    </include>
     <EditText
         android:id="@+id/searchEditText"
         android:layout_width="match_parent"

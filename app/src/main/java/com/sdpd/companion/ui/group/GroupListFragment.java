@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -46,6 +48,8 @@ public class GroupListFragment extends Fragment {
     private DatabaseReference groupref;
     private String searchBy;
     private String query;
+    private String category;
+    public Toolbar m;
 
     public GroupListFragment() {
         super(R.layout.fragment_group_list);
@@ -57,6 +61,7 @@ public class GroupListFragment extends Fragment {
         groupref = FirebaseDatabase.getInstance().getReference().child("Groups");
         searchBy = getArguments().getString("searchBy");
         query = getArguments().getString("query");
+        category = getArguments().getString("category");
         Initializefields();
         retrieveanddisplay();
         list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -82,11 +87,20 @@ public class GroupListFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        m=(Toolbar)getView().findViewById( R.id.group_chat_bar_layout);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(m);
+        if(category.equals("study"))
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Find matches - " + query);
+        else
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(query + " Groups");
         fab = (FloatingActionButton) getView().findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getNewGroupDetails();
+                if(category.equals("study"))
+                    getNewGroupDetails();
+                else
+                    getNewExtraGroupDetails();
             }
         });
     }
@@ -130,7 +144,7 @@ public class GroupListFragment extends Fragment {
         });
     }
     public void getNewGroupDetails() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AlertDialog);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Enter Group details:-");
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.group_details_dialog, null);
@@ -148,6 +162,43 @@ public class GroupListFragment extends Fragment {
                 Group newGroup = new Group(groupName, groupDes, groupCode, groupTopic);
 
                 if (TextUtils.isEmpty(groupName) || TextUtils.isEmpty(groupDes) || TextUtils.isEmpty(groupCode) || TextUtils.isEmpty(groupTopic)) {
+                    Toast.makeText(getContext(), "Please write group details", Toast.LENGTH_LONG).show();
+                } else {
+                    ((TestActivity) getActivity()).createNewGroup(newGroup);
+                }
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+
+            }
+        });
+        builder.show();
+    }
+
+    public void getNewExtraGroupDetails() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Enter Group details:-");
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.extra_group_details_dialog, null);
+        builder.setView(dialogView);
+
+        builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                EditText grp = (EditText) dialogView.findViewById(R.id.egroupName);
+                String groupName = grp.getText().toString();
+                String groupDes = ((EditText) dialogView.findViewById(R.id.egroupDes)).getText().toString();
+                String fromTime = ((EditText) dialogView.findViewById(R.id.fromTime)).getText().toString();
+                String toTime = ((EditText) dialogView.findViewById(R.id.toTime)).getText().toString();
+
+                Group newGroup = new Group(groupName, groupDes, "", query);
+                newGroup.fromTime = fromTime;
+                newGroup.toTime = toTime;
+
+                if (TextUtils.isEmpty(groupName) || TextUtils.isEmpty(groupDes) || TextUtils.isEmpty(fromTime) || TextUtils.isEmpty(toTime)) {
                     Toast.makeText(getContext(), "Please write group details", Toast.LENGTH_LONG).show();
                 } else {
                     ((TestActivity) getActivity()).createNewGroup(newGroup);

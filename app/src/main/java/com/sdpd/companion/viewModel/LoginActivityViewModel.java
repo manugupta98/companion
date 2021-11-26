@@ -55,7 +55,7 @@ public class LoginActivityViewModel extends ViewModel {
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w("FAILED", "signInResult:failed code=" + e.getStatusCode());
+            Log.d("FAILED my tag", "signInResult:failed code=" + e.getStatusCode() + e.getMessage().toString());
             return false;
         }
         return true;

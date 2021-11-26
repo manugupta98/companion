@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Text 1"
-        android:id="@+id/groupName" />
+        android:id="@+id/egroupName" />
 
     <TextView
         android:id="@+id/textView2"
@@ -24,28 +24,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Text 2"
-        android:id="@+id/groupDes" />
+        android:id="@+id/egroupDes" />
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Code" />
+        android:text="Session Time" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Text 3"
-        android:id="@+id/groupCode"
+        android:hint="Session start time (24 hr format eg: 15:00)"
+        android:id="@+id/fromTime"
         android:layout_gravity="center_horizontal" />
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Topic" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Text 4"
-        android:id="@+id/groupTopic" />
+        android:hint="Session end time (24 hr format eg: 17:00)"
+        android:id="@+id/toTime"
+        android:layout_gravity="center_horizontal" />
+
 </LinearLayout>

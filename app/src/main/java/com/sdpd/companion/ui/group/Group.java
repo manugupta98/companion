@@ -8,6 +8,8 @@ public class Group implements Serializable {
     public String groupCode;
     public String groupTopic;
     public String groupKey;
+    public String fromTime;
+    public String toTime;
 
     public Group(){
 
@@ -16,8 +18,10 @@ public class Group implements Serializable {
         this.groupName = groupName;
         this.groupDes = groupDes;
         this.groupCode = groupCode;
-        this. groupTopic = groupTopic;
+        this.groupTopic = groupTopic;
         this.groupKey = "";
+        this.fromTime = "";
+        this.toTime = "";
     }
 
     @Override

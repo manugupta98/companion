@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "381686327895-7ne8nl34eqmsdrjmj29ab84i0kmg608g.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.sdpd.companion",
-            "certificate_hash": "2681e8659530c290ceec968300a51d4dd699ebb5"
-          }
-        },
-        {
           "client_id": "381686327895-baemidi6k15fhvv5rv2e77urh2skglbt.apps.googleusercontent.com",
           "client_type": 3
         }

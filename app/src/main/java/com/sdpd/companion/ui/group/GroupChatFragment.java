@@ -1,17 +1,26 @@
 package com.sdpd.companion.ui.group;
 
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
@@ -53,9 +62,7 @@ public class GroupChatFragment extends Fragment {
         group= (Group)getArguments().getSerializable("selectedGroup");
         UserRef = FirebaseDatabase.getInstance().getReference().child("Users");
         GroupNameRef = FirebaseDatabase.getInstance().getReference().child("Groups").child(group.groupKey).child("Chats");
-
-
-
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -84,6 +91,105 @@ public class GroupChatFragment extends Fragment {
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        inflater.inflate(R.menu.groupchat_menu,menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.group_info:
+                showGroupInfoDialog();
+                return true;
+            case R.id.create_agenda:
+                createGroupAgenda();
+                return true;
+
+            default:
+                break;
+        }
+
+        return false;
+    }
+
+    public void showGroupInfoDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Group Info");
+        builder.setMessage("Group Name: "+group.groupName +"\n"+"Group Description: " + group.groupDes+"\n"+"Group Topic: " + group.groupTopic+"\n"+"Group Code: " + group.groupCode );
+        builder.setPositiveButton("Dismiss", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.show();
+    }
+    public void createGroupAgenda() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Enter Agenda details");
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.group_chat_create_agenda, null);
+        builder.setView(dialogView);
+
+        builder.setPositiveButton("Post", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                EditText grp = (EditText) dialogView.findViewById(R.id.time);
+                String time = grp.getText().toString();
+                String location = ((EditText) dialogView.findViewById(R.id.location)).getText().toString();
+                String agenda = ((EditText) dialogView.findViewById(R.id.agenda)).getText().toString();
+
+                postAgenda(time,location,agenda);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+
+            }
+        });
+        builder.show();
+    }
+    public void postAgenda(String time, String location, String agenda){
+        String message = "Meet-up\n"+"Agenda: "+agenda+"\n"+"Time: "+time+"\n"+"Location: "+ location;
+        String messageKey = GroupNameRef.push().getKey();
+
+
+        if(TextUtils.isEmpty(message))
+        {
+            Toast.makeText(getContext(),"Please write message first...",Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Calendar calForData = Calendar.getInstance();
+            SimpleDateFormat currentDataFormat = new SimpleDateFormat("MMM dd ,yyyy");
+            currentDate = currentDataFormat.format(calForData.getTime());
+
+            Calendar calForTime = Calendar.getInstance();
+            SimpleDateFormat currentTimeFormat = new SimpleDateFormat("hh:mm a");
+            currentTime = currentTimeFormat.format(calForTime.getTime());
+
+            HashMap<String, Object> groupMessageKey = new HashMap<>();
+            GroupNameRef.updateChildren(groupMessageKey);
+            GroupMessageKeyRef = GroupNameRef.child(messageKey);
+
+            HashMap<String,Object> messageInfoMap =new HashMap<>();
+            messageInfoMap.put("name","Anirudh");
+            messageInfoMap.put("message",message);
+            messageInfoMap.put("date",currentDate);
+            messageInfoMap.put("time",currentTime);
+
+            GroupMessageKeyRef.updateChildren(messageInfoMap);
+
+        }
+    }
+
+        @Override
     public void onStart() {
         GroupNameRef.addChildEventListener(new ChildEventListener() {
             @Override

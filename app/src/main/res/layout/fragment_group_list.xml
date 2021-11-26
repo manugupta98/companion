@@ -8,11 +8,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.group.GroupListFragment">
-
+    <include
+        android:id="@+id/group_chat_bar_layout"
+        layout="@layout/group_chat_appbar">
+    </include>
     <ListView
         android:id="@+id/List_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp">
     </ListView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
