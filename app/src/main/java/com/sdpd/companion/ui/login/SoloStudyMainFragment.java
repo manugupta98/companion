@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,12 +49,21 @@ public class SoloStudyMainFragment extends Fragment {
         editText=view.findViewById(R.id.studyTopic);
         radioGroup=view.findViewById(R.id.radioGroup);
 
+        editText.setText("");
+        getActivity().setTitle("Companion");
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 int selectedRadioButtonId=radioGroup.getCheckedRadioButtonId();
-                soloStudyViewModel.setSearchedText(editText.getText().toString());
+                Log.d("message",editText.getText().toString());
+                if(editText.getText().toString().equals("")){
+                    Toast.makeText(getActivity(),"Please enter the search text",Toast.LENGTH_LONG).show();
+                }
+                else{
+                    soloStudyViewModel.setSearchedText(editText.getText().toString());
+                }
                 if(selectedRadioButtonId!=-1){
                     MaterialRadioButton radioButton=view.findViewById(selectedRadioButtonId);
                     String selectedOption=radioButton.getText().toString();

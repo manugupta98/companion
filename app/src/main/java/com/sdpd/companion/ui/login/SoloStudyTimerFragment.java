@@ -1,5 +1,7 @@
 package com.sdpd.companion.ui.login;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,26 +47,9 @@ public class SoloStudyTimerFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("message",soloStudyViewModel.isTimerRunning()+"");
-        if(soloStudyViewModel.isTimerRunning()){
-            hours.setText(soloStudyViewModel.getTimerUserHours()+"");
-            minutes.setText(soloStudyViewModel.getTimerUserMinutes()+"");
-            seconds.setText(soloStudyViewModel.getTimerUserSeconds()+"");
-
-            int milliSeconds=soloStudyViewModel.getTimerSeconds();
-            int millisUntilFinished=(Integer.parseInt(hours.getText().toString())*3600000+Integer.parseInt(minutes.getText().toString())*60000+Integer.parseInt(seconds.getText().toString())*1000);
-
-            progress.setProgress((int)((double)millisUntilFinished/milliSeconds*100));
-            progressBarText.setText((int)((double)millisUntilFinished/milliSeconds*100)+"%");
-        }
-
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
+        Toast.makeText(getActivity(),"Ending current session",Toast.LENGTH_LONG).show();
         soloStudyViewModel.setTimerRunning(false);
         soloStudyViewModel.setTimerSeconds(0);
     }
@@ -89,12 +75,16 @@ public class SoloStudyTimerFragment extends Fragment {
         progress=view.findViewById(R.id.progressBar);
         progressBarText=view.findViewById(R.id.progressInidcatorText);
 
+        hours.setEnabled(true);
+        minutes.setEnabled(true);
+        seconds.setEnabled(true);
+
+        startTimerButton.setClickable(true);
+
         startTimerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // int h=Integer.parseInt(hours.toString());
-
-
 
                 int milliSeconds=0;
                 if(soloStudyViewModel.isTimerRunning()){
@@ -102,19 +92,20 @@ public class SoloStudyTimerFragment extends Fragment {
                 }
                 else{
                     milliSeconds=(Integer.parseInt(hours.getText().toString())*3600000+Integer.parseInt(minutes.getText().toString())*60000+Integer.parseInt(seconds.getText().toString())*1000);
-
-
-
                     soloStudyViewModel.setTimerSeconds(milliSeconds);
                     soloStudyViewModel.setTimerRunning(true);
                 }
 
                 if(milliSeconds==0){
                     Toast.makeText(getActivity().getApplicationContext(),"Please enter  time",Toast.LENGTH_SHORT).show();
+                    soloStudyViewModel.setTimerRunning(false);
                 }
                 else{
                     final int ms=milliSeconds;
-
+                    startTimerButton.setEnabled(false);
+                    hours.setEnabled(false);
+                    minutes.setEnabled(false);
+                    seconds.setEnabled(false);
                     new CountDownTimer(ms,1000){
                         public void onTick(long millisUntilFinished) {
                             // Used for formatting digit to be in 2 digits only
@@ -154,6 +145,9 @@ public class SoloStudyTimerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 soloStudyViewModel.setSearchedText("");
+                soloStudyViewModel.setTimerSeconds(0);
+                soloStudyViewModel.setTimerRunning(false);
+
                 FragmentManager fm=getActivity().getSupportFragmentManager();
                 FragmentTransaction ft=fm.beginTransaction();
                 fm.popBackStack();
