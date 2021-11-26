@@ -63,27 +63,27 @@ public class SoloStudyMainFragment extends Fragment {
                 }
                 else{
                     soloStudyViewModel.setSearchedText(editText.getText().toString());
-                }
-                if(selectedRadioButtonId!=-1){
-                    MaterialRadioButton radioButton=view.findViewById(selectedRadioButtonId);
-                    String selectedOption=radioButton.getText().toString();
-                    FragmentManager fm=getActivity().getSupportFragmentManager();
-                    FragmentTransaction ft=fm.beginTransaction();
-                    if(selectedOption.equals("Stopwatch")){
-                        ft.replace(R.id.fragment_container_view, SoloStudyStopwatchFragment.class, null)
-                                .setReorderingAllowed(true)
-                                .addToBackStack("Solo")
-                                .commit();
-                    }
-                    else{
-                        ft.replace(R.id.fragment_container_view, SoloStudyTimerFragment.class, null)
-                                .setReorderingAllowed(true)
-                                .addToBackStack("Solo")
-                                .commit();
-                    }
+                    if(selectedRadioButtonId!=-1){
+                        MaterialRadioButton radioButton=view.findViewById(selectedRadioButtonId);
+                        String selectedOption=radioButton.getText().toString();
+                        FragmentManager fm=getActivity().getSupportFragmentManager();
+                        FragmentTransaction ft=fm.beginTransaction();
+                        if(selectedOption.equals("Stopwatch")){
+                            ft.replace(R.id.fragment_container_view, SoloStudyStopwatchFragment.class, null)
+                                    .setReorderingAllowed(true)
+                                    .addToBackStack("Solo")
+                                    .commit();
+                        }
+                        else{
+                            ft.replace(R.id.fragment_container_view, SoloStudyTimerFragment.class, null)
+                                    .setReorderingAllowed(true)
+                                    .addToBackStack("Solo")
+                                    .commit();
+                        }
 
-                }else{
-                    Toast.makeText(view.getContext(),"Please select a radio button",Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(view.getContext(),"Please select a radio button",Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
