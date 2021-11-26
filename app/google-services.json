@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "381686327895",
+    "firebase_url": "https://companion-sdpd-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "companion-sdpd",
+    "storage_bucket": "companion-sdpd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:381686327895:android:debb02f356fe464e079112",
+        "android_client_info": {
+          "package_name": "com.sdpd.companion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "381686327895-baemidi6k15fhvv5rv2e77urh2skglbt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6cN-DQcRW6g_bN0rXLXgiIDbKdcVO--M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "381686327895-baemidi6k15fhvv5rv2e77urh2skglbt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
