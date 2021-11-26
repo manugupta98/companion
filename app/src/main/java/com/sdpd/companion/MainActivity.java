@@ -3,6 +3,7 @@ package com.sdpd.companion;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sdpd.companion.ui.login.LoginFragment;
+import com.sdpd.companion.ui.login.SoloStudyMainFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,10 +16,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getSupportFragmentManager().beginTransaction()
-                .setReorderingAllowed(true)
-                .add(R.id.fragment_container_view, LoginFragment.class, null)
-                .commit();
+        if(savedInstanceState == null) {
+
+            getSupportFragmentManager().beginTransaction()
+                    .setReorderingAllowed(true)
+                    .add(R.id.fragment_container_view, LoginFragment.class, null)
+                    .commit();
+        }
 
     }
 
