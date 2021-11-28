@@ -91,7 +91,10 @@ public class SoloStudyTimerFragment extends Fragment {
                     milliSeconds= soloStudyViewModel.getTimerSeconds();
                 }
                 else{
-                    milliSeconds=(Integer.parseInt(hours.getText().toString())*3600000+Integer.parseInt(minutes.getText().toString())*60000+Integer.parseInt(seconds.getText().toString())*1000);
+                    int hrs= hours.getText().toString().equals("") ?0:Integer.parseInt(hours.getText().toString());
+                    int mins= minutes.getText().toString().equals("") ?0:Integer.parseInt(minutes.getText().toString());
+                    int secs= seconds.getText().toString().equals("") ?0:Integer.parseInt(seconds.getText().toString());
+                    milliSeconds=(hrs*3600000+mins*60000+secs*1000);
                     soloStudyViewModel.setTimerSeconds(milliSeconds);
                     soloStudyViewModel.setTimerRunning(true);
                 }
