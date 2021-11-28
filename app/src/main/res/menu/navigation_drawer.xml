@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/groupStudyFragment"
+            android:title="@string/drawer_item_1"
+            android:checked="true" />
+        <item
+            android:id="@+id/soloStudyFragment"
+            android:title="@string/drawer_item_2" />
+        <item
+            android:id="@+id/item3"
+            android:title="@string/drawer_item_3" />
+        <item
+            android:id="@+id/analyticsFragment"
+            android:title="@string/drawer_item_4" />
+        <item
+            android:id="@+id/logout_button"
+            android:title="@string/drawer_item_5" />
+    </group>
+</menu>
