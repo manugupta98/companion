@@ -70,15 +70,18 @@
         app:layout_constraintStart_toStartOf="@+id/pitView"
         app:layout_constraintTop_toTopOf="@+id/pitView"></EditText>
 
-    <ImageButton
+    <club.cred.synth.views.SynthImageButton
         android:id="@+id/send_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginBottom="20dp"
         android:padding="10dp"
-        android:background="@color/neu_black"
+        android:background="@color/neu_red"
+        app:neuButtonType="elevated_soft"
+        app:neuPlatformColor="@color/neu_red"
+        app:neuButtonRadius="30dp"
         android:src="@drawable/ic_send_message"
-        android:tint="@color/neu_red"
+        android:tint="@color/neu_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/send_message_text" />
