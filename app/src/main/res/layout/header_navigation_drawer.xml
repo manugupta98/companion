@@ -3,39 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:background="@color/neu_black">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/design_default_color_primary"
-        android:orientation="horizontal">
+    <club.cred.synth.views.ElevatedView
+        android:id="@+id/elevatedView"
+        style="@style/neu_button"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:neuCornerRadius="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <!--        <ImageView-->
-        <!--            android:id="@+id/imageView"-->
-        <!--            android:layout_width="0dp"-->
-        <!--            android:layout_height="50dp"-->
-        <!--            android:layout_weight="1"-->
-        <!--            tools:srcCompat="@tools:sample/avatars" />-->
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/elevatedView"
+        app:layout_constraintEnd_toEndOf="@+id/elevatedView"
+        app:layout_constraintStart_toStartOf="@+id/elevatedView"
+        app:layout_constraintTop_toTopOf="@+id/elevatedView"
+        tools:srcCompat="@tools:sample/avatars" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="24dp"
-            tools:srcCompat="@tools:sample/avatars" />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="36dp"
+        android:layout_weight="1"
+        android:textColor="@color/neu_red"
+        android:text="Title"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        app:layout_constraintStart_toEndOf="@+id/elevatedView"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_weight="1"
-            android:text="Title"
-            android:textAppearance="?attr/textAppearanceHeadline6" />
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

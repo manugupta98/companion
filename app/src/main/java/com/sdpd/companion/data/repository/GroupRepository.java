@@ -53,7 +53,8 @@ public class GroupRepository {
             for (DataSnapshot child : snapshot.getChildren()) {
                 groupIds.add((String) child.getKey());
             }
-        });
+        }, error -> {
+                    groupIds.clear();});
         return firebaseGroupSource.getUserGroups().map(snapshot -> {
 
             ArrayList<Group> groups = new ArrayList<>();
