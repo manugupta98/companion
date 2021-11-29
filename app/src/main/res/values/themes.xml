@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.Companion" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/neu_black</item>
+        <item name="colorPrimaryVariant">@color/neu_black</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -26,6 +26,11 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">25dp</item>
         <item name="neuButtonType">elevated_soft</item>
+        <item name="neuPlatformColor">@color/neu_black</item>
+    </style>
+
+    <style name="neu_image">
+        <item name="android:padding">10dp</item>
         <item name="neuPlatformColor">@color/neu_black</item>
     </style>
 s
