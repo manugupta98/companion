@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sdpd.companion.R;
-import com.sdpd.companion.viewmodels.GroupViewModel;
+import com.sdpd.companion.viewmodels.UserGroupViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -21,7 +21,7 @@ public class HomeFragment extends Fragment {
 
     private static final String TAG = "HomeFragment";
 
-    GroupViewModel groupViewModel;
+    UserGroupViewModel userGroupViewModel;
 
     GroupRecyclerViewAdapter adapter;
     RecyclerView recyclerView;
@@ -34,11 +34,11 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        groupViewModel = new ViewModelProvider(this).get(GroupViewModel.class);
+        userGroupViewModel = new ViewModelProvider(getActivity()).get(UserGroupViewModel.class);
     }
 
     private void observeGroups() {
-        groupViewModel.getUserGroups().observeForever(newGroupList -> {
+        userGroupViewModel.getUserGroups().observeForever(newGroupList -> {
             Log.d(TAG, newGroupList.toString());
             adapter.setGroups(newGroupList);
         });

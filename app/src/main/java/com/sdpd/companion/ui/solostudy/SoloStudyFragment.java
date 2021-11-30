@@ -23,7 +23,7 @@ public class SoloStudyFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        groupViewModel = new ViewModelProvider(this).get(GroupViewModel.class);
+//        groupViewModel = new ViewModelProvider(getActivity()).get(GroupViewModel.class);
     }
 
     @Override

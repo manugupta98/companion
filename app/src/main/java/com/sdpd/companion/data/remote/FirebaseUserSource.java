@@ -7,8 +7,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.sdpd.companion.data.model.User;
 
 import java.util.HashMap;
@@ -16,7 +18,9 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import io.reactivex.rxjava3.core.BackpressureStrategy;
 import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 
 public class FirebaseUserSource {
@@ -58,5 +62,21 @@ public class FirebaseUserSource {
                 }
             });
         });
+    }
+
+    public Flowable<DataSnapshot> getUsers() {
+        return Flowable.create(emitter -> {
+            mDatabase.child("usersdatapublic").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    emitter.onNext(snapshot);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }, BackpressureStrategy.LATEST);
     }
 }

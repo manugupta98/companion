@@ -5,6 +5,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +29,7 @@ import javax.inject.Inject;
 import io.reactivex.rxjava3.core.BackpressureStrategy;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
 
 public class FirebaseGroupSource {
     private static final String TAG = "FirebaseGroupSource";
@@ -42,23 +45,6 @@ public class FirebaseGroupSource {
         this.firebaseAuth = firebaseAuth;
         this.mDatabase = firebaseDatabase.getReference();
         this.firebaseUserSource = firebaseUserSource;
-    }
-
-    public Flowable<DataSnapshot> getUserGroups(){
-        return Flowable.create(emitter -> {
-            FirebaseUser user = firebaseAuth.getCurrentUser();
-            mDatabase.child("groups/").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    emitter.onNext(snapshot);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        }, BackpressureStrategy.LATEST);
     }
 
     public Flowable<DataSnapshot> getUserGroupIds(){
@@ -81,8 +67,23 @@ public class FirebaseGroupSource {
 
     public Flowable<DataSnapshot> getGroups(){
         return Flowable.create(emitter -> {
-            FirebaseUser user = firebaseAuth.getCurrentUser();
             mDatabase.child("groups/").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    emitter.onNext(snapshot);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }, BackpressureStrategy.LATEST);
+    }
+
+    public Flowable<DataSnapshot> getMembers(String groupId) {
+        return Flowable.create(emitter -> {
+            mDatabase.child("groupmembers").child(groupId).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     emitter.onNext(snapshot);
@@ -114,15 +115,27 @@ public class FirebaseGroupSource {
         Log.d(TAG, user.getDisplayName());
         String key = mDatabase.child("groups").push().getKey();
         ArrayList<User> userList = new ArrayList<>(Arrays.asList(new User(user)));
-        Group group = new Group(key, null,name, description, classCode, null, null);
+        Group group = new Group(key, null,name, description, classCode, null, null, null);
 
-        Map<String, Object> postValues = group.toMap();
+        Map<String, Object> groupValues = group.toMap();
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/groups/" + key, postValues);
+        childUpdates.put("/groups/" + key, groupValues);
         childUpdates.put("/users/" + user.getUid() + "/groups/" + key, true);
         childUpdates.put("/groupmembers/" + key + "/" + user.getUid(), true);
 
         mDatabase.updateChildren(childUpdates);
 
+    }
+
+
+    public Single<DataSnapshot> getGroupById(String groupId) {
+        return Single.create(emitter -> {
+            mDatabase.child("/groups/" + groupId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    emitter.onSuccess(task.getResult());
+                }
+            });
+        });
     }
 }

@@ -12,6 +12,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.sdpd.companion.data.model.Group;
 import com.sdpd.companion.data.model.Message;
@@ -40,7 +41,7 @@ public class FirebaseMessageSource {
     public FirebaseUserSource firebaseUserSource;
 
     @Inject
-    public FirebaseMessageSource(FirebaseDatabase firebaseDatabase, FirebaseAuth firebaseAuth, FirebaseUserSource firebaseUserSource){
+    public FirebaseMessageSource(FirebaseDatabase firebaseDatabase, FirebaseAuth firebaseAuth, FirebaseUserSource firebaseUserSource) {
         this.firebaseDatabase = firebaseDatabase;
         this.firebaseAuth = firebaseAuth;
         this.mDatabase = firebaseDatabase.getReference();
@@ -49,23 +50,24 @@ public class FirebaseMessageSource {
 
     public void sendMessage(String groupId, String message) {
 //        return Completable.create(emitter -> {
-            FirebaseUser user = firebaseAuth.getCurrentUser();
-            Log.d(TAG, user.getDisplayName());
-            String key = mDatabase.child("messages/" + groupId + "/").push().getKey();
-            Message messageObject = new Message(key, user.getUid(), user.getDisplayName(), message, -1);
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        Log.d(TAG, user.getDisplayName());
+        String key = mDatabase.child("messages/" + groupId + "/").push().getKey();
+        Message messageObject = new Message(key, user.getUid(), user.getDisplayName(), message, -1);
 
-            Map<String, Object> postValues = messageObject.toMap();
-            Map<String, Object> childUpdates = new HashMap<>();
-            childUpdates.put("messages/" + groupId + "/" + key, postValues);
-            childUpdates.put("groups/" + groupId + "/lastMessage", message);
-            childUpdates.put("groups/" + groupId + "/lastMessageSenderName", user.getDisplayName());
+        Map<String, Object> postValues = messageObject.toMap();
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("messages/" + groupId + "/" + key, postValues);
+        childUpdates.put("groups/" + groupId + "/lastMessage", message);
+        childUpdates.put("groups/" + groupId + "/lastMessageSenderName", user.getDisplayName());
+        childUpdates.put("groups/" + groupId + "/lastMessageTime", ServerValue.TIMESTAMP);
 
-            mDatabase.updateChildren(childUpdates);
+        mDatabase.updateChildren(childUpdates);
 
 //        });
     }
 
-    public Flowable<DataSnapshot> getMessages(String groupId, int limit){
+    public Flowable<DataSnapshot> getMessages(String groupId, int limit) {
         return Flowable.create(emitter -> {
             mDatabase.child("messages/" + groupId).orderByChild("timestamp").limitToLast(limit).addValueEventListener(new ValueEventListener() {
                 @Override

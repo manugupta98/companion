@@ -2,6 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.Companion" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
+        <item name="colorPrimaryDark">@color/neu_red</item>
         <item name="colorPrimary">@color/neu_black</item>
         <item name="colorPrimaryVariant">@color/neu_black</item>
         <item name="colorOnPrimary">@color/black</item>

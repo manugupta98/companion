@@ -46,8 +46,8 @@
 
     <club.cred.synth.views.PitView
         android:id="@+id/pitView"
-        android:layout_width="330dp"
-        android:layout_height="70dp"
+        android:layout_width="320dp"
+        android:layout_height="60dp"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/mylinearlayout"
@@ -57,10 +57,10 @@
 
     <EditText
         android:id="@+id/send_message_text"
-        android:layout_width="317dp"
+        android:layout_width="310dp"
         android:layout_height="wrap_content"
         android:hint="type message..."
-        android:padding="17dp"
+        android:padding="15dp"
         android:textCursorDrawable="@drawable/cursor"
         android:backgroundTint="@color/neu_black"
         android:textColor="@color/neu_white"
@@ -72,18 +72,19 @@
 
     <club.cred.synth.views.SynthImageButton
         android:id="@+id/send_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginBottom="20dp"
-        android:padding="10dp"
         android:background="@color/neu_red"
-        app:neuButtonType="elevated_soft"
-        app:neuPlatformColor="@color/neu_red"
-        app:neuButtonRadius="30dp"
+        android:padding="10dp"
         android:src="@drawable/ic_send_message"
         android:tint="@color/neu_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/send_message_text" />
+        app:layout_constraintHorizontal_bias="0.578"
+        app:layout_constraintStart_toEndOf="@+id/send_message_text"
+        app:neuButtonRadius="30dp"
+        app:neuButtonType="elevated_soft"
+        app:neuPlatformColor="@color/neu_red" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -31,7 +31,7 @@ public class UserRepository {
         this.firebaseUserSource = firebaseUserSource;
     }
 
-    private User getUserFromSnapshot(DataSnapshot snapshot) {
+    public User getUserFromSnapshot(DataSnapshot snapshot) {
         Map<String, Object> values = (Map<String, Object>) snapshot.getValue();
         return new User(
                 snapshot.getKey(),

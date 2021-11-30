@@ -19,13 +19,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageView"
         android:layout_width="50dp"
         android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="@+id/elevatedView"
         app:layout_constraintEnd_toEndOf="@+id/elevatedView"
         app:layout_constraintStart_toStartOf="@+id/elevatedView"
         app:layout_constraintTop_toTopOf="@+id/elevatedView"
+        android:layout_weight="1"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView

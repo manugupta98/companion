@@ -43,7 +43,11 @@ public class FirebaseAuthSource {
         return Flowable.create(emitter -> {
             firebaseAuth.addAuthStateListener(firebaseAuth -> {
                 Log.d(TAG, "auth listener");
-                emitter.onNext(firebaseAuth.getCurrentUser());
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                if (firebaseUser != null){
+                    Log.d(TAG, firebaseUser.getDisplayName());
+                }
+                emitter.onNext(firebaseUser);
             });
         }, BackpressureStrategy.LATEST);
     }

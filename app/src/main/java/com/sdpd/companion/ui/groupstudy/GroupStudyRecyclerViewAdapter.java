@@ -1,11 +1,10 @@
-package com.sdpd.companion.ui.home;
+package com.sdpd.companion.ui.groupstudy;
 
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,22 +14,22 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.sdpd.companion.R;
 import com.sdpd.companion.data.model.Group;
+import com.sdpd.companion.ui.home.HomeFragmentDirections;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class GroupRecyclerViewAdapter extends RecyclerView.Adapter<GroupRecyclerViewAdapter.ViewHolder> {
+public class GroupStudyRecyclerViewAdapter extends RecyclerView.Adapter<GroupStudyRecyclerViewAdapter.ViewHolder> {
 
-    private static final String TAG = "GroupRecyclerView";
+    private static final String TAG = "GroupStudyRecyclerView";
 
     private ArrayList<Group> groups;
     private Context context;
 
 
-    public GroupRecyclerViewAdapter(Context context) {
+    public GroupStudyRecyclerViewAdapter(Context context) {
         this.context = context;
         groups = new ArrayList<>();
     }
@@ -45,30 +44,17 @@ public class GroupRecyclerViewAdapter extends RecyclerView.Adapter<GroupRecycler
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Group group = groups.get(position);
 
-        Glide.with(context)
-                .load(group.getImageUri())
-                .placeholder(R.drawable.default_group_icon)
-                .circleCrop()
-                .into(holder.groupImageView);
-
-        holder.groupTitleTextView.setText(group.getName());
-
-        if (group.getLastMessageSenderName() != null) {
-            String text = group.getLastMessageSenderName() + ": " + group.getLastMessage();
-            holder.groupDescriptionTextView.setText(text);
-        } else {
-            holder.groupDescriptionTextView.setText(group.getDescription());
-        }
+        holder.groupTitleTextView.setText(groups.get(position).getName());
+        holder.groupDescriptionTextView.setText(groups.get(position).getDescription());
 
         holder.groupTile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavController navController = Navigation.findNavController(view);
-//                navController.navigate();
-                HomeFragmentDirections.ActionHomeFragmentToChatFragment action = HomeFragmentDirections.actionHomeFragmentToChatFragment(groups.get(position).getId());
-                navController.navigate(action);
+                Log.d(TAG, "onclick" + position);
+//                NavController navController = Navigation.findNavController(view);
+//                HomeFragmentDirections.ActionHomeFragmentToChatFragment action = HomeFragmentDirections.actionGroupStudyFragmentToGroupFragment(groups.get(position).getId());
+//                navController.navigate(action);
             }
         });
     }
@@ -80,7 +66,6 @@ public class GroupRecyclerViewAdapter extends RecyclerView.Adapter<GroupRecycler
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView groupImageView;
         TextView groupTitleTextView;
         TextView groupDescriptionTextView;
         CardView groupTile;
@@ -88,7 +73,6 @@ public class GroupRecyclerViewAdapter extends RecyclerView.Adapter<GroupRecycler
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            groupImageView = itemView.findViewById(R.id.group_icon);
             groupTitleTextView = itemView.findViewById(R.id.group_title);
             groupDescriptionTextView = itemView.findViewById(R.id.group_description);
             groupTile = itemView.findViewById(R.id.group_item_tile);
@@ -124,3 +108,4 @@ public class GroupRecyclerViewAdapter extends RecyclerView.Adapter<GroupRecycler
         result.dispatchUpdatesTo(this);
     }
 }
+
