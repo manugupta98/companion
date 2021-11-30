@@ -1,7 +1,6 @@
 package com.sdpd.companion.ui.home;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import com.sdpd.companion.R;
 import com.sdpd.companion.data.model.Group;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class GroupRecyclerViewAdapter extends RecyclerView.Adapter<GroupRecyclerViewAdapter.ViewHolder> {
 
