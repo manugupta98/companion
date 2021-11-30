@@ -21,6 +21,7 @@ public class Group {
 
     private String lastMessage;
     private String lastMessageSenderName;
+    private Long lastMessageTime;
 
 
     public Group(){}
@@ -33,12 +34,16 @@ public class Group {
         return lastMessageSenderName;
     }
 
+    public String getLastMessage() {
+        return lastMessage;
+    }
+
     public void setLastMessageSenderName(String lastMessageSenderName) {
         this.lastMessageSenderName = lastMessageSenderName;
     }
 
 
-    public Group(String id, String imageUri, String name, String description, String classCode, String lastMessage, String lastMessageSenderName) {
+    public Group(String id, String imageUri, String name, String description, String classCode, String lastMessage, String lastMessageSenderName, Long lastMessageTime) {
         this.id = id;
         this.imageUri = imageUri;
         this.name = name;
@@ -47,6 +52,7 @@ public class Group {
 
         this.lastMessage = lastMessage;
         this.lastMessageSenderName = lastMessageSenderName;
+        this.lastMessageTime = lastMessageTime;
 
     }
 
@@ -93,6 +99,7 @@ public class Group {
         result.put("classCode", (classCode != null)? classCode : false);
         result.put("lastMessage", (lastMessage != null)? lastMessage : false);
         result.put("lastMessageSenderName", (lastMessageSenderName != null)? lastMessageSenderName : false);
+        result.put("lastMessageTime", (lastMessageTime != null)? lastMessageTime : false);
 
         return result;
     }
@@ -104,5 +111,13 @@ public class Group {
 
     public String getClassCode() {
         return classCode;
+    }
+
+    public long getLastMessageTime() {
+        return lastMessageTime;
+    }
+
+    public void setLastMessageTime(long lastMessageTime) {
+        this.lastMessageTime = lastMessageTime;
     }
 }

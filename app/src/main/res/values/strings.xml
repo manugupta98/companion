@@ -9,5 +9,7 @@
     <string name="drawer_item_3">Extras</string>
     <string name="drawer_item_4">Dashboard</string>
     <string name="drawer_item_5">Logout</string>
+    <string name="alert_dialog_ok">Confirm</string>
+    <string name="alert_dialog_cancel">Discard</string>
 
 </resources>

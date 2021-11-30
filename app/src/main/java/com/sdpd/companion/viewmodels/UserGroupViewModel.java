@@ -22,8 +22,8 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @HiltViewModel
-public class GroupViewModel extends ViewModel {
-    private static final String TAG = "GroupViewModel";
+public class UserGroupViewModel extends ViewModel {
+    private static final String TAG = "UserGroupViewModel";
 
     GroupRepository groupRepository;
     UserRepository userRepository;
@@ -31,7 +31,7 @@ public class GroupViewModel extends ViewModel {
     private MutableLiveData<ArrayList<Group>> userGroups = new MutableLiveData<>();
 
     @Inject
-    public GroupViewModel(SavedStateHandle handle, GroupRepository groupRepository, UserRepository userRepository) {
+    public UserGroupViewModel(SavedStateHandle handle, GroupRepository groupRepository, UserRepository userRepository) {
         this.groupRepository = groupRepository;
         this.userRepository = userRepository;
         observeUserGroups();
@@ -44,6 +44,7 @@ public class GroupViewModel extends ViewModel {
                 .subscribe(groups -> {
                     userGroups.setValue(groups);
                 }, error -> {
+                    Log.d(TAG, error.getMessage());
                     userGroups.setValue(new ArrayList<Group>());
                 });
 //        Log.d(TAG, userGroups.getValue().get(0).getName());

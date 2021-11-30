@@ -31,7 +31,7 @@
             app:destination="@id/analyticsFragment" />
         <action
             android:id="@+id/action_homeFragment_to_chatFragment"
-            app:destination="@id/chatFragment"/>
+            app:destination="@id/chatFragment" />
     </fragment>
 
     <fragment
@@ -39,6 +39,26 @@
         android:name="com.sdpd.companion.ui.groupstudy.GroupStudyFragment"
         android:label="Group Study"
         tools:layout="@layout/fragment_group_study" />
+
+    <fragment
+        android:id="@+id/groupInfoFragment"
+        android:name="com.sdpd.companion.ui.groupstudy.GroupInfoFragment"
+        android:label="Group Info"
+        tools:layout="@layout/fragment_group_study">
+        <argument
+            android:name="groupId"
+            app:argType="string" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/groupStudyFilterDialog"
+        android:name="com.sdpd.companion.ui.groupstudy.GroupStudyFilterDialog"
+        tools:layout="@layout/dialog_group_study_filter" />
+
+    <dialog
+        android:id="@+id/newGroupDialog"
+        android:name="com.sdpd.companion.ui.groupstudy.NewGroupDialog"
+        tools:layout="@layout/dialog_new_group" />
 
     <fragment
         android:id="@+id/soloStudyFragment"
@@ -56,7 +76,7 @@
         android:id="@+id/chatFragment"
         android:name="com.sdpd.companion.ui.chat.ChatFragment"
         android:label="Chat"
-        tools:layout="@layout/fragment_chat" >
+        tools:layout="@layout/fragment_chat">
         <argument
             android:name="groupId"
             app:argType="string" />

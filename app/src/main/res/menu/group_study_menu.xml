@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/groupStudyFilterDialog"
+        android:icon="@drawable/ic_baseline_filter_alt_24"
+        app:showAsAction="always"
+        android:title="Filter"/>
+    <item
+        android:id="@+id/newGroupDialog"
+        android:icon="@drawable/ic_baseline_add_24"
+        android:actionLayout="@layout/support_simple_spinner_dropdown_item"
+        app:showAsAction="always"
+        android:title="New Group"/>
+</menu>
