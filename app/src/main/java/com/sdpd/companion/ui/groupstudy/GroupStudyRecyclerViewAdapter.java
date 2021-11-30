@@ -5,21 +5,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.sdpd.companion.R;
 import com.sdpd.companion.data.model.Group;
-import com.sdpd.companion.ui.home.HomeFragmentDirections;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class GroupStudyRecyclerViewAdapter extends RecyclerView.Adapter<GroupStudyRecyclerViewAdapter.ViewHolder> {
 
@@ -44,9 +42,16 @@ public class GroupStudyRecyclerViewAdapter extends RecyclerView.Adapter<GroupStu
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Group group = groups.get(position);
 
-        holder.groupTitleTextView.setText(groups.get(position).getName());
-        holder.groupDescriptionTextView.setText(groups.get(position).getDescription());
+        Glide.with(context)
+                .load(group.getImageUri())
+                .placeholder(R.drawable.default_group_icon)
+                .circleCrop()
+                .into(holder.groupImageView);
+
+        holder.groupTitleTextView.setText(group.getName());
+        holder.groupDescriptionTextView.setText(group.getDescription());
 
         holder.groupTile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +74,7 @@ public class GroupStudyRecyclerViewAdapter extends RecyclerView.Adapter<GroupStu
         TextView groupTitleTextView;
         TextView groupDescriptionTextView;
         CardView groupTile;
+        ImageView groupImageView;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -76,6 +82,7 @@ public class GroupStudyRecyclerViewAdapter extends RecyclerView.Adapter<GroupStu
             groupTitleTextView = itemView.findViewById(R.id.group_title);
             groupDescriptionTextView = itemView.findViewById(R.id.group_description);
             groupTile = itemView.findViewById(R.id.group_item_tile);
+            groupImageView = itemView.findViewById(R.id.group_icon);
         }
     }
 
