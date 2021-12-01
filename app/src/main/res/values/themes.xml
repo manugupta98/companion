@@ -50,6 +50,7 @@
         <item name="android:tint">@color/neu_red</item>
         <item name="buttonBarPositiveButtonStyle">@style/ButtonStyle</item>
         <item name="buttonBarNegativeButtonStyle">@style/ButtonStyle</item>
+        <item name="dialogCornerRadius">50dp</item>
     </style>
 
     <style name="ButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
