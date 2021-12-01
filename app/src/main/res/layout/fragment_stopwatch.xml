@@ -2,8 +2,35 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:clipChildren="false"
+    android:background="@color/neu_black"
     android:layout_height="match_parent">
+
+    <club.cred.synth.views.PitView
+        android:id="@+id/pitView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginEnd="8dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar"
+        app:layout_constraintStart_toStartOf="@+id/progressBar"
+        app:layout_constraintTop_toTopOf="@+id/progressBar"
+        app:neuCornerRadius="50dp"
+        app:pitColor="@color/neu_black" />
+
+    <club.cred.synth.views.ElevatedView
+        style="@style/neu_button"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pitView"
+        app:layout_constraintEnd_toEndOf="@+id/pitView"
+        app:layout_constraintStart_toStartOf="@+id/pitView"
+        app:layout_constraintTop_toTopOf="@+id/pitView"
+        app:neuCornerRadius="50dp" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progressBar"
@@ -13,46 +40,59 @@
         app:indicatorSize="200dp"
         app:layout_constraintBottom_toTopOf="@+id/stopwatch_button_group"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Chronometer
         android:id="@+id/chronometer_stopwatch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/neu_white"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="@+id/progressBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/progressBar"/>
+        app:layout_constraintEnd_toEndOf="@+id/progressBar"
+        app:layout_constraintStart_toStartOf="@+id/progressBar"
+        app:layout_constraintTop_toTopOf="@+id/progressBar" />
 
     <LinearLayout
         android:id="@+id/stopwatch_button_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="128dp"
+        android:clipChildren="false"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar">
+        app:layout_constraintStart_toStartOf="parent">
 
-        <Button
+        <club.cred.synth.views.SynthImageButton
             android:id="@+id/reset_button"
+            style="@style/neu_button"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/ic_baseline_restore_24" />
+            android:layout_marginHorizontal="10dp"
+            android:padding="5dp"
+            android:tint="@color/neu_red"
+            app:srcCompat="@drawable/ic_baseline_restore_24" />
 
-        <Button
+        <club.cred.synth.views.SynthImageButton
             android:id="@+id/pause_button"
+            style="@style/neu_button"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/ic_baseline_pause_24" />
+            android:layout_marginHorizontal="10dp"
+            android:padding="5dp"
+            android:tint="@color/neu_red"
+            app:srcCompat="@drawable/ic_baseline_pause_24" />
 
-        <Button
+        <club.cred.synth.views.SynthImageButton
             android:id="@+id/start_button"
+            style="@style/neu_button"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/ic_baseline_play_arrow_24" />
+            android:layout_marginHorizontal="10dp"
+            android:padding="5dp"
+            android:tint="@color/neu_red"
+            app:srcCompat="@drawable/ic_baseline_play_arrow_24" />
     </LinearLayout>
 
 

@@ -13,13 +13,16 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21240942028985507" />
         <entry key="app/src/main/res/layout/dialog_group_study_filter.xml" value="0.5" />
         <entry key="app/src/main/res/layout/dialog_new_group.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/dialog_time_picker.xml" value="0.45" />
         <entry key="app/src/main/res/layout/fragment_analytics.xml" value="0.21240942028985507" />
         <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_group_info.xml" value="0.2203125" />
         <entry key="app/src/main/res/layout/fragment_group_study.xml" value="0.21240942028985507" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.21240942028985507" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_solo_study.xml" value="0.21240942028985507" />
+        <entry key="app/src/main/res/layout/fragment_solo_study.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_stopwatch.xml" value="0.27807971014492755" />
+        <entry key="app/src/main/res/layout/fragment_timer.xml" value="0.45" />
         <entry key="app/src/main/res/layout/group_toolbar_filter.xml" value="0.335" />
         <entry key="app/src/main/res/layout/group_toolbar_new_group.xml" value="0.28940217391304346" />
         <entry key="app/src/main/res/layout/header_navigation_drawer.xml" value="0.335" />

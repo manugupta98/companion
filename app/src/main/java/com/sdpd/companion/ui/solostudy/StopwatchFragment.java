@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -22,9 +23,9 @@ public class StopwatchFragment extends Fragment {
 
     SoloStudyViewModel soloStudyViewModel;
 
-    Button startButton;
-    Button pauseButton;
-    Button resetButton;
+    ImageView startButton;
+    ImageView pauseButton;
+    ImageView resetButton;
     Chronometer chronometer;
     CircularProgressIndicator circularProgressIndicator;
 
@@ -52,7 +53,7 @@ public class StopwatchFragment extends Fragment {
         circularProgressIndicator = view.findViewById(R.id.progressBar);
 
 //        circularProgressIndicator.setIndicatorSize(1000);
-        circularProgressIndicator.setProgress(20);
+        circularProgressIndicator.setProgress(0);
 
 
         soloStudyViewModel.initStopwatch(chronometer);

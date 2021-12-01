@@ -4,7 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimaryDark">@color/neu_red</item>
         <item name="colorPrimary">@color/neu_black</item>
-        <item name="colorPrimaryVariant">@color/neu_black</item>
+        <item name="colorPrimaryVariant">@color/neu_red</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>

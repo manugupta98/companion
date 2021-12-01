@@ -5,28 +5,51 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:paddingStart="15dp"
-    android:paddingLeft="15dp"
-    android:paddingTop="20dp"
+    android:paddingLeft="20dp"
+    android:paddingTop="10dp"
     android:paddingEnd="15dp"
-    android:paddingRight="15dp"
+    android:paddingRight="20dp"
+    android:clipChildren="false"
+    android:background="@color/neu_black"
     android:paddingBottom="20dp"
     app:flow_horizontalAlign="center"
     app:flow_verticalAlign="center">
 
+    <club.cred.synth.views.PitView
+        android:id="@+id/pitView"
+        android:layout_width="wrap_content"
+        android:layout_height="87dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textInputLayout3"
+        app:neuCornerRadius="30dp"
+        app:pitColor="@color/neu_black" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/spacing1"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColorHint="@color/neu_gray"
+        app:boxBackgroundColor="@color/neu_black"
+        app:boxStrokeWidth="0dp"
+        app:hintTextColor="@color/neu_red"
+        app:layout_constraintStart_toStartOf="@+id/pitView"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/hours"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Hour"
-            android:maxLength="2" />
+            android:maxLength="2"
+            android:textColor="@color/neu_white"
+            android:textCursorDrawable="@drawable/cursor" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -36,24 +59,39 @@
         android:focusable="false"
         android:inputType="textPersonName"
         android:text=" : "
+        android:textColor="@color/neu_red"
+        android:textSize="30dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/textInputLayout3"
-        app:layout_constraintEnd_toStartOf="@+id/textInputLayout3"
-        app:layout_constraintStart_toEndOf="@+id/textInputLayout"
+        app:layout_constraintEnd_toStartOf="@+id/textInputLayout2"
+        app:layout_constraintStart_toEndOf="@+id/textInputLayout3"
         app:layout_constraintTop_toTopOf="@+id/textInputLayout3" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout3"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/spacing2"
-        app:layout_constraintStart_toEndOf="@+id/spacing1">
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColorHint="@color/neu_gray"
+        app:boxBackgroundColor="@color/neu_black"
+
+        app:boxStrokeWidth="0dp"
+        app:hintTextColor="@color/neu_red"
+        app:layout_constraintEnd_toEndOf="@+id/pitView"
+        app:layout_constraintStart_toStartOf="@+id/pitView"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/minute"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Min"
-            android:maxLength="2" />
+            android:maxLength="2"
+            android:textColor="@color/neu_white"
+            android:textCursorDrawable="@drawable/cursor" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -63,24 +101,39 @@
         android:focusable="false"
         android:inputType="textPersonName"
         android:text=" : "
+        android:textColor="@color/neu_red"
+        android:textSize="30dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/textInputLayout2"
-        app:layout_constraintEnd_toStartOf="@+id/textInputLayout2"
-        app:layout_constraintStart_toEndOf="@+id/textInputLayout3"
+        app:layout_constraintEnd_toStartOf="@+id/textInputLayout3"
+        app:layout_constraintStart_toEndOf="@+id/textInputLayout"
         app:layout_constraintTop_toTopOf="@+id/textInputLayout2" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout2"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/spacing2">
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="25dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColorHint="@color/neu_gray"
+        app:boxBackgroundColor="@color/neu_black"
+
+        app:boxStrokeWidth="0dp"
+        app:hintTextColor="@color/neu_red"
+        app:layout_constraintEnd_toEndOf="@+id/pitView"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/seconds"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Sec"
-            android:maxLength="2" />
+            android:maxLength="2"
+            android:textColor="@color/neu_white"
+            android:textCursorDrawable="@drawable/cursor" />
     </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
