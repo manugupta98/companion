@@ -114,7 +114,7 @@ public class FirebaseGroupSource {
         });
     }
 
-    public void createGroup(String name, String description, String classCode) {
+    public void createGroup(String name, String classCode, String description) {
         // TODO Add image code
         FirebaseUser user = firebaseAuth.getCurrentUser();
         Log.d(TAG, user.getDisplayName());

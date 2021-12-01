@@ -38,7 +38,7 @@
         android:id="@+id/groupStudyFragment"
         android:name="com.sdpd.companion.ui.groupstudy.GroupStudyFragment"
         android:label="Group Study"
-        tools:layout="@layout/fragment_group_study" >
+        tools:layout="@layout/fragment_group_study">
         <action
             android:id="@+id/action_groupStudyFragment_to_groupInfoFragment"
             app:destination="@id/groupInfoFragment" />
@@ -71,7 +71,34 @@
         android:id="@+id/soloStudyFragment"
         android:name="com.sdpd.companion.ui.solostudy.SoloStudyFragment"
         android:label="Solo Study"
-        tools:layout="@layout/fragment_solo_study" />
+        tools:layout="@layout/fragment_solo_study" >
+        <action
+            android:id="@+id/action_soloStudyFragment_to_soloStudyStopwatchFragment"
+            app:destination="@id/soloStudyStopwatchFragment" />
+        <action
+            android:id="@+id/action_soloStudyFragment_to_soloStudyTimerFragment"
+            app:destination="@id/soloStudyTimerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/soloStudyTimerFragment"
+        android:name="com.sdpd.companion.ui.solostudy.TimerFragment"
+        android:label="{topic}"
+        tools:layout="@layout/fragment_timer" >
+        <argument
+            android:name="topic"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/soloStudyStopwatchFragment"
+        android:name="com.sdpd.companion.ui.solostudy.StopwatchFragment"
+        android:label="{topic}"
+        tools:layout="@layout/fragment_stopwatch" >
+        <argument
+            android:name="topic"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/analyticsFragment"
