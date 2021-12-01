@@ -101,13 +101,13 @@ public class GroupRepository {
         });
     }
 
-    public Flowable<ArrayList<User>> getMembers(String groupId){
+    public Flowable<ArrayList<String>> getMembers(String groupId){
         return firebaseGroupSource.getMembers(groupId).map(snapshot -> {
-            ArrayList<User> members = new ArrayList<>();
+            ArrayList<String> memberIds = new ArrayList<>();
             for (DataSnapshot child: snapshot.getChildren()){
-                members.add(userRepository.getUserFromSnapshot(child));
+                memberIds.add(child.getKey());
             }
-            return members;
+            return memberIds;
         });
     }
 
@@ -133,5 +133,9 @@ public class GroupRepository {
         return firebaseGroupSource.getGroupById(groupId).map(snapshot -> {
             return getGroupFromSnapshot(snapshot);
         });
+    }
+
+    public Completable joinGroup(String groupId) {
+        return firebaseGroupSource.joinGroup(groupId);
     }
 }

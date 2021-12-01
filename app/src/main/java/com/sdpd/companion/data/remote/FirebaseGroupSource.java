@@ -105,7 +105,12 @@ public class FirebaseGroupSource {
             childUpdates.put("/users/" + user.getUid() + "/groups/" + groupId, true);
             childUpdates.put("/groupmembers/" + groupId + "/" + user.getUid(), true);
 
-            mDatabase.updateChildren(childUpdates);
+            mDatabase.updateChildren(childUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    emitter.onComplete();
+                }
+            });
         });
     }
 
