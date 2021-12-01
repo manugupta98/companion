@@ -64,12 +64,12 @@ public class FirebaseUserSource {
         });
     }
 
-    public Flowable<DataSnapshot> getUsers() {
-        return Flowable.create(emitter -> {
+    public Single<DataSnapshot> getUsers() {
+        return Single.create(emitter -> {
             mDatabase.child("usersdatapublic").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    emitter.onNext(snapshot);
+                    emitter.onSuccess(snapshot);
                 }
 
                 @Override
@@ -77,6 +77,6 @@ public class FirebaseUserSource {
 
                 }
             });
-        }, BackpressureStrategy.LATEST);
+        });
     }
 }

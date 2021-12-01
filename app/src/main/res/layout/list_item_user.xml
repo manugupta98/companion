@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/group_item_tile"
+        android:id="@+id/user_item_tile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="10dp"
@@ -19,7 +19,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/group_title"
+                android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="100dp"
@@ -31,7 +31,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/group_icon"
+                android:id="@+id/user_icon"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:paddingLeft="10dp"
@@ -41,28 +41,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars" />
-
-            <TextView
-                android:id="@+id/group_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginLeft="100dp"
-                android:layout_marginTop="10dp"
-                android:text=""
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/group_title" />
-
-            <TextView
-                android:id="@+id/group_last_message_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:text="hh"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

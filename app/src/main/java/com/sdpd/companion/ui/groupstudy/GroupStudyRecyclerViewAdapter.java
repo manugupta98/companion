@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,7 +48,7 @@ public class GroupStudyRecyclerViewAdapter extends RecyclerView.Adapter<GroupStu
 
         Glide.with(context)
                 .load(group.getImageUri())
-                .placeholder(R.drawable.default_group_icon)
+                .placeholder(R.drawable.default_group_icon5)
                 .circleCrop()
                 .into(holder.groupImageView);
 
@@ -57,9 +59,9 @@ public class GroupStudyRecyclerViewAdapter extends RecyclerView.Adapter<GroupStu
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onclick" + position);
-//                NavController navController = Navigation.findNavController(view);
-//                HomeFragmentDirections.ActionHomeFragmentToChatFragment action = HomeFragmentDirections.actionGroupStudyFragmentToGroupFragment(groups.get(position).getId());
-//                navController.navigate(action);
+                NavController navController = Navigation.findNavController(view);
+                GroupStudyFragmentDirections.ActionGroupStudyFragmentToGroupInfoFragment action = GroupStudyFragmentDirections.actionGroupStudyFragmentToGroupInfoFragment(group.getId(), group.getName());
+                navController.navigate(action);
             }
         });
     }

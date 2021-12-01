@@ -26,7 +26,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 @HiltViewModel
 public class GroupInfoViewModel extends ViewModel {
 
-    private static final String TAG = "GroupStudyViewModel";
+    private static final String TAG = "GroupInfoViewModel";
 
     GroupRepository groupRepository;
     UserRepository userRepository;
@@ -42,6 +42,7 @@ public class GroupInfoViewModel extends ViewModel {
 
     private MutableLiveData<Group> group = new MutableLiveData<>();
     private MutableLiveData<ArrayList<User>> members = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<String>> memberIds = new MutableLiveData<>();
     private String groupId;
 
     @Inject
@@ -56,6 +57,17 @@ public class GroupInfoViewModel extends ViewModel {
         observeMembers();
     }
 
+    public void joinGroup(){
+        groupRepository.joinGroup(groupId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                    Log.d(TAG, "grp Joined");
+                }, error -> {
+
+                });
+    }
+
     private void fetchGroupInfo() {
         groupRepository.getGroupById(groupId)
                 .subscribeOn(Schedulers.io())
@@ -67,13 +79,32 @@ public class GroupInfoViewModel extends ViewModel {
                 });
     }
 
+
+
     private void observeMembers() {
         groupRepository.getMembers(groupId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(newMembersList -> {
-                    members.setValue(newMembersList);
+                .subscribe(newMemberIds -> {
+                    Log.d(TAG, "1");
+                    memberIds.setValue(newMemberIds);
+                    fetchMemberInfo();
                 }, error -> {
+                    Log.d(TAG, error.getMessage());
+                    memberIds.setValue(new ArrayList<>());
+                    fetchMemberInfo();
+                });
+    }
+
+    private void fetchMemberInfo() {
+        userRepository.getUsers(memberIds.getValue())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(newMemberList -> {
+                    Log.d(TAG, "2");
+                    members.setValue(newMemberList);
+                }, error -> {
+                    Log.d(TAG, error.getMessage());
                     members.setValue(new ArrayList<>());
                 });
     }

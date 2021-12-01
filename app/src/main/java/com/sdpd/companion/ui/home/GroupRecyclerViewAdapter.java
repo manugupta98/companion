@@ -47,7 +47,7 @@ public class GroupRecyclerViewAdapter extends RecyclerView.Adapter<GroupRecycler
 
         Glide.with(context)
                 .load(group.getImageUri())
-                .placeholder(R.drawable.default_group_icon)
+                .placeholder(R.drawable.default_group_icon5)
                 .circleCrop()
                 .into(holder.groupImageView);
 
@@ -65,7 +65,7 @@ public class GroupRecyclerViewAdapter extends RecyclerView.Adapter<GroupRecycler
             public void onClick(View view) {
                 NavController navController = Navigation.findNavController(view);
 //                navController.navigate();
-                HomeFragmentDirections.ActionHomeFragmentToChatFragment action = HomeFragmentDirections.actionHomeFragmentToChatFragment(groups.get(position).getId());
+                HomeFragmentDirections.ActionHomeFragmentToChatFragment action = HomeFragmentDirections.actionHomeFragmentToChatFragment(group.getId(), group.getName());
                 navController.navigate(action);
             }
         });

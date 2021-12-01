@@ -8,6 +8,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -15,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.sdpd.companion.R;
 import com.sdpd.companion.viewmodels.GroupInfoViewModel;
 import com.sdpd.companion.viewmodels.GroupStudyViewModel;
@@ -27,8 +31,14 @@ public class GroupInfoFragment extends Fragment {
 
     GroupInfoViewModel groupInfoViewModel;
 
-//    GroupStudyRecyclerViewAdapter adapter;
-//    RecyclerView recyclerView;
+    MembersRecyclerViewAdapter adapter;
+    RecyclerView recyclerView;
+
+    ImageView groupIconImageView;
+    TextView groupNameTextView;
+    TextView groupClassCodeTextView;
+    TextView groupDescriptionTextView;
+    Button joinButton;
 
 
     public GroupInfoFragment() {
@@ -48,25 +58,55 @@ public class GroupInfoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_group_info, container, false);
-//        recyclerView = view.findViewById(R.id.groups_recycler_view);
-//        adapter = new GroupStudyRecyclerViewAdapter(getContext());
-//        recyclerView.setAdapter(adapter);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        setHasOptionsMenu(true);
-//        groupInfoViewModel.setGroupId(groupId);
+        recyclerView = view.findViewById(R.id.users_recycler_view);
+        adapter = new MembersRecyclerViewAdapter(getContext());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        groupIconImageView = view.findViewById(R.id.group_icon);
+        groupNameTextView = view.findViewById(R.id.group_name);
+        groupClassCodeTextView = view.findViewById(R.id.group_class_code);
+        groupDescriptionTextView = view.findViewById(R.id.group_description);
+        joinButton = view.findViewById(R.id.join_button);
+
+        String groupId = GroupInfoFragmentArgs.fromBundle(getArguments()).getGroupId();
+        groupInfoViewModel.setGroupId(groupId);
+
+        joinButton.setText("Join");
+        joinButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                groupInfoViewModel.joinGroup();
+            }
+        });
+
         observeGroup();
         observeMembers();
         return view;
     }
 
     private void observeMembers() {
-//        groupInfoViewModel.getMembers().observeForever(newMemeberList);
+        groupInfoViewModel.getMembers().observeForever(newMemberList -> {
+            Log.d(TAG, newMemberList.toString());
+            adapter.setMembers(newMemberList);
+        });
     }
 
     private void observeGroup() {
+        Log.d(TAG, "group info obseve grp");
         groupInfoViewModel.getGroup().observeForever(group -> {
+            Log.d(TAG, "group info");
             if (group != null){
 
+                Glide.with(getContext())
+                        .load(group.getImageUri())
+                        .placeholder(R.drawable.default_group_icon5)
+                        .circleCrop()
+                        .into(groupIconImageView);
+
+                groupNameTextView.setText(group.getName());
+                groupClassCodeTextView.setText(group.getClassCode());
+                groupDescriptionTextView.setText(group.getDescription());
             }
         });
     }

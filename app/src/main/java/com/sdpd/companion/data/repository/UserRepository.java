@@ -11,6 +11,7 @@ import com.sdpd.companion.data.model.User;
 import com.sdpd.companion.data.remote.FirebaseAuthSource;
 import com.sdpd.companion.data.remote.FirebaseUserSource;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -55,5 +56,17 @@ public class UserRepository {
                     Log.d(TAG, "user reached repo");
                     return new User(firebaseUser.getUid(), firebaseUser.getDisplayName(), firebaseUser.getPhotoUrl().toString());
                 });
+    }
+
+    public Single<ArrayList<User>> getUsers(ArrayList<String> ids) {
+        return firebaseUserSource.getUsers().map(snapshot -> {
+            ArrayList<User> users = new ArrayList<>();
+            for (DataSnapshot child : snapshot.getChildren()) {
+                User user = getUserFromSnapshot(child);
+                if (ids.contains(user.getUid()))
+                users.add(user);
+            }
+            return users;
+        });
     }
 }
