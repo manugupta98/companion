@@ -56,7 +56,7 @@ public class NewGroupDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         view = getLayoutInflater().inflate(R.layout.dialog_new_group, null);
-        return new AlertDialog.Builder(getContext())
+        return new AlertDialog.Builder(getContext(), R.style.neu_dialog)
                 .setTitle("New Group")
                 .setIcon(R.drawable.ic_baseline_add_24)
                 .setView(view)

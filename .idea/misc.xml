@@ -11,8 +11,8 @@
         <entry key="app/src/main/res/drawable/ic_baseline_filter_alt_24.xml" value="0.4041666666666667" />
         <entry key="app/src/main/res/drawable/ic_send_message.xml" value="0.4041666666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21240942028985507" />
-        <entry key="app/src/main/res/layout/dialog_group_study_filter.xml" value="0.2203125" />
-        <entry key="app/src/main/res/layout/dialog_new_group.xml" value="0.2203125" />
+        <entry key="app/src/main/res/layout/dialog_group_study_filter.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/dialog_new_group.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_analytics.xml" value="0.21240942028985507" />
         <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_group_info.xml" value="0.2203125" />
