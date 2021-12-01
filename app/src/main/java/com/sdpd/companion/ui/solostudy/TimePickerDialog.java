@@ -1,9 +1,8 @@
-package com.sdpd.companion.ui.groupstudy;
+package com.sdpd.companion.ui.solostudy;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,34 +13,31 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.google.android.material.checkbox.MaterialCheckBox;
 import com.sdpd.companion.R;
 import com.sdpd.companion.viewmodels.GroupStudyViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
-
 @AndroidEntryPoint
-public class NewGroupDialog extends DialogFragment {
+public class TimePickerDialog extends DialogFragment {
 
-    private static final String TAG = "NewGroupDialog";
+    private static final String TAG = "TimePickerDialog";
 
     GroupStudyViewModel groupStudyViewModel;
 
     View view;
 
-    TextView groupNameTextView;
-    TextView classCodeTextView;
-    TextView descriptionTextView;
+    TextView timeTextView;
+
+    TextView hourTextView;
+    TextView minuteTextView;
+    TextView secondsTextView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        groupNameTextView = view.findViewById(R.id.group_study_name_input);
-        classCodeTextView = view.findViewById(R.id.group_study_class_code_input);
-        descriptionTextView = view.findViewById(R.id.group_study_description_input);
+//        timeTextView = view.findViewById(R.id);
         return view;
     }
 
@@ -55,19 +51,15 @@ public class NewGroupDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        view = getLayoutInflater().inflate(R.layout.dialog_new_group, null);
-        return new AlertDialog.Builder(getContext(), R.style.neu_dialog)
-                .setTitle("New Group")
-                .setIcon(R.drawable.ic_baseline_add_24)
+        view = getLayoutInflater().inflate(R.layout.dialog_time_picker, null);
+        return new AlertDialog.Builder(getContext())
+                .setTitle("Time")
+//                .setIcon(R.drawable.ic_baseline_add_24)
                 .setView(view)
                 .setPositiveButton(R.string.alert_dialog_ok,
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                String name = groupNameTextView.getText().toString();
-                                String classCode = classCodeTextView.getText().toString();
-                                String description = descriptionTextView.getText().toString();
-                                groupStudyViewModel.createGroup(name, classCode, description);
                             }
                         })
                 .setNegativeButton(R.string.alert_dialog_cancel,
