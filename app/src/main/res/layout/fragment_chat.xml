@@ -57,7 +57,7 @@
 
     <EditText
         android:id="@+id/send_message_text"
-        android:layout_width="310dp"
+        android:layout_width="305dp"
         android:layout_height="wrap_content"
         android:hint="type message..."
         android:padding="15dp"
