@@ -22,6 +22,10 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.sdpd.companion.ui.home.HomeFragmentDirections;
+import com.sdpd.companion.ui.login.LoginFragmentDirections;
 import com.sdpd.companion.viewmodels.UserGroupViewModel;
 import com.sdpd.companion.viewmodels.UserViewModel;
 
@@ -75,22 +79,23 @@ public class MainActivity extends AppCompatActivity {
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
-        observeLogin();
+//        observeLogin();
     }
 
-    private void observeLogin() {
-        userViewModel.getIsLoggedIn().observeForever(isLoggedIn -> {
-            Log.d(TAG, isLoggedIn.toString());
-            if (isLoggedIn) {
-                navController.popBackStack(R.layout.fragment_login, true);
-                navController.navigate(R.id.homeFragment);
-            } else {
-                Log.d(TAG, "Login page opened");
-                navController.popBackStack(R.layout.fragment_home, true);
-                navController.navigate(R.id.loginFragment);
-            }
-        });
-    }
+//    private void observeLogin() {
+//        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+//        firebaseAuth.addAuthStateListener(auth -> {
+//            FirebaseUser user = auth.getCurrentUser();
+//            if (user != null) {
+//                navController.popBackStack(R.layout.fragment_login, true);
+//                navController.navigate(R.id.homeFragment);
+//            } else {
+//                Log.d(TAG, "Login page opened");
+//                LoginFragmentDirections.ActionLoginFragmentToHomeFragment action = LoginFragmentDirections.actionLoginFragmentToHomeFragment();
+//                navController.navigate(action);
+//            }
+//        });
+//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

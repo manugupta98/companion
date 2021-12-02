@@ -1,19 +1,24 @@
 package com.sdpd.companion.ui.solostudy;
 
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.sdpd.companion.R;
+import com.sdpd.companion.viewmodels.AnalyticsViewModel;
 import com.sdpd.companion.viewmodels.SoloStudyViewModel;
+import com.sdpd.companion.viewmodels.StopwatchViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -21,7 +26,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class StopwatchFragment extends Fragment {
     private static final String TAG = "StopwatchFragment";
 
-    SoloStudyViewModel soloStudyViewModel;
+    StopwatchViewModel stopwatchViewModel;
+    AnalyticsViewModel analyticsViewModel;
 
     ImageView startButton;
     ImageView pauseButton;
@@ -29,7 +35,7 @@ public class StopwatchFragment extends Fragment {
     Chronometer chronometer;
     CircularProgressIndicator circularProgressIndicator;
 
-    public StopwatchFragment(){
+    public StopwatchFragment() {
         super(R.layout.fragment_stopwatch);
     }
 
@@ -37,7 +43,8 @@ public class StopwatchFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        soloStudyViewModel = new ViewModelProvider(getActivity()).get(SoloStudyViewModel.class);
+        stopwatchViewModel = new ViewModelProvider(getActivity()).get(StopwatchViewModel.class);
+        analyticsViewModel = new ViewModelProvider(getActivity()).get(AnalyticsViewModel.class);
     }
 
     @Override
@@ -54,22 +61,47 @@ public class StopwatchFragment extends Fragment {
 
 //        circularProgressIndicator.setIndicatorSize(1000);
         circularProgressIndicator.setProgress(0);
+        String topic = StopwatchFragmentArgs.fromBundle(getArguments()).getTopic();
 
-
-        soloStudyViewModel.initStopwatch(chronometer);
+        analyticsViewModel.setDetails("solo", topic);
 
         initStartButton();
         initPauseButton();
         initResetButton();
+        observeProgress();
 
         return view;
+    }
+
+    private void observeProgress() {
+        chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+            @Override
+            public void onChronometerTick(Chronometer chronometer) {
+                stopwatchViewModel.updateTime(chronometer.getBase());
+            }
+        });
+        stopwatchViewModel.getTime().observeForever(time -> {
+            Long seconds = (0 - time) % 60000;
+            int progress = (int) ((seconds * 100) / 60000);
+            circularProgressIndicator.setProgress(progress, true);
+        });
+        stopwatchViewModel.getIsChronometerRunning().observe(getViewLifecycleOwner(), value -> {
+            if (value){
+                analyticsViewModel.startTracking();
+            } else {
+                analyticsViewModel.stopTracking();
+            }
+
+        });
     }
 
     private void initResetButton() {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                soloStudyViewModel.resetStopwatch();
+                chronometer.setBase(SystemClock.elapsedRealtime());
+                chronometer.stop();
+                stopwatchViewModel.resetStopwatch();
             }
         });
     }
@@ -78,7 +110,8 @@ public class StopwatchFragment extends Fragment {
         pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                soloStudyViewModel.pauseStopwatch();
+                chronometer.stop();
+                stopwatchViewModel.pauseStopwatch();
             }
         });
     }
@@ -87,7 +120,10 @@ public class StopwatchFragment extends Fragment {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                soloStudyViewModel.startStopwatch();
+                Long time = stopwatchViewModel.getTime().getValue();
+                chronometer.setBase(SystemClock.elapsedRealtime() + time);
+                chronometer.start();
+                stopwatchViewModel.startStopwatch();
             }
         });
     }

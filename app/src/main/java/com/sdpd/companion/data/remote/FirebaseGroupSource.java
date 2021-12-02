@@ -143,4 +143,21 @@ public class FirebaseGroupSource {
             });
         });
     }
+
+    public Completable leaveGroup(String groupId) {
+        return Completable.create(emitter -> {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            Log.d(TAG, user.getDisplayName());
+            Map<String, Object> childUpdates = new HashMap<>();
+            childUpdates.put("/users/" + user.getUid() + "/groups/" + groupId, null);
+            childUpdates.put("/groupmembers/" + groupId + "/" + user.getUid(), null);
+
+            mDatabase.updateChildren(childUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    emitter.onComplete();
+                }
+            });
+        });
+    }
 }

@@ -15,15 +15,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.sdpd.companion.R;
+import com.sdpd.companion.data.model.Group;
 import com.sdpd.companion.viewmodels.GroupInfoViewModel;
 import com.sdpd.companion.viewmodels.GroupStudyViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @AndroidEntryPoint
 public class GroupInfoFragment extends Fragment {
@@ -72,17 +78,44 @@ public class GroupInfoFragment extends Fragment {
         String groupId = GroupInfoFragmentArgs.fromBundle(getArguments()).getGroupId();
         groupInfoViewModel.setGroupId(groupId);
 
-        joinButton.setText("Join");
-        joinButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                groupInfoViewModel.joinGroup();
-            }
-        });
+        initButton();
 
         observeGroup();
         observeMembers();
         return view;
+    }
+
+    private void initButton() {
+        groupInfoViewModel.getIsMember().observeForever(isMember -> {
+            if (!isMember) {
+                joinButton.setText("Join");
+                joinButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        groupInfoViewModel.joinGroup()
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(() -> {
+                                    Group group = groupInfoViewModel.getGroup().getValue();
+                                    NavController navController = Navigation.findNavController(getView());
+                                    NavDirections action = GroupInfoFragmentDirections.actionGroupInfoFragmentToChatFragment(group.getId(), group.getName());
+                                    navController.navigate(action);
+                                }, error -> {
+
+                                });;
+                    }
+                });
+            } else {
+                joinButton.setText("Leave");
+                joinButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        groupInfoViewModel.leaveGroup();
+                    }
+                });
+
+            }
+        });
     }
 
     private void observeMembers() {
@@ -96,7 +129,7 @@ public class GroupInfoFragment extends Fragment {
         Log.d(TAG, "group info obseve grp");
         groupInfoViewModel.getGroup().observeForever(group -> {
             Log.d(TAG, "group info");
-            if (group != null){
+            if (group != null) {
 
                 Glide.with(getContext())
                         .load(group.getImageUri())
