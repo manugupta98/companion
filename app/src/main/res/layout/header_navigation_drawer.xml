@@ -30,15 +30,16 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:layout_width="0dp"
         android:id="@+id/drawer_user_name"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="36dp"
+        android:textSize="15sp"
         android:layout_weight="1"
-        android:textColor="@color/neu_red"
         android:text="Title"
         android:textAppearance="?attr/textAppearanceHeadline6"
+        android:textColor="@color/neu_red"
         app:layout_constraintStart_toEndOf="@+id/elevatedView"
         app:layout_constraintTop_toTopOf="parent" />
 
