@@ -41,7 +41,8 @@
         app:layout_constraintEnd_toEndOf="@+id/pitView"
         app:layout_constraintStart_toStartOf="@+id/pitView"
         app:layout_constraintTop_toTopOf="@+id/pitView"
-        app:trackColor="@color/neu_red" />
+        app:trackThickness="8dp"
+        app:indicatorColor="@color/neu_red" />
 
     <Chronometer
         android:id="@+id/chronometer_timer"

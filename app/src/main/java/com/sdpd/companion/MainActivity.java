@@ -18,6 +18,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -28,6 +29,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.sdpd.companion.data.model.User;
 import com.sdpd.companion.ui.home.HomeFragmentDirections;
 import com.sdpd.companion.ui.login.LoginFragmentDirections;
 import com.sdpd.companion.viewmodels.UserGroupViewModel;
@@ -73,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
+        NavDirections action = HomeFragmentDirections.actionHomeFragmentToLoginFragment();
+        navController.navigate(action);
 
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
@@ -90,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
         initDrawer();
-//        observeLogin();
+        observeLogin();
     }
 
     private void initDrawer() {
@@ -109,24 +113,31 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    private void observeLogin() {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth.addAuthStateListener(auth -> {
+            FirebaseUser firebaseUser = auth.getCurrentUser();
+            User user = null;
+            if (firebaseUser == null){
+                userViewModel.setUser(null);
+            } else {
+                user = new User(firebaseUser.getUid(), firebaseUser.getDisplayName(), firebaseUser.getPhotoUrl().toString());
+                userViewModel.setUser(user);
+            }
+            if (user != null) {
+                if (navController.getCurrentDestination().getId() == R.id.loginFragment) {
+                    NavDirections action = LoginFragmentDirections.actionLoginFragmentToHomeFragment();
+                    navController.navigate(action);
+                }
+            } else {
+                if (navController.getCurrentDestination().getId() != R.id.loginFragment) {
+                    Log.d(TAG, "Login page opened");
+                    NavDirections action = HomeFragmentDirections.actionHomeFragmentToLoginFragment();
+                    navController.navigate(action);
+                }
+            }
+        });
     }
-//    private void observeLogin() {
-//        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-//        firebaseAuth.addAuthStateListener(auth -> {
-//            FirebaseUser user = auth.getCurrentUser();
-//            if (user != null) {
-//                navController.popBackStack(R.layout.fragment_login, true);
-//                navController.navigate(R.id.homeFragment);
-//            } else {
-//                Log.d(TAG, "Login page opened");
-//                LoginFragmentDirections.ActionLoginFragmentToHomeFragment action = LoginFragmentDirections.actionLoginFragmentToHomeFragment();
-//                navController.navigate(action);
-//            }
-//        });
-//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

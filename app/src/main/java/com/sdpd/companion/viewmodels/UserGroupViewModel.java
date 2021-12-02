@@ -30,9 +30,11 @@ public class UserGroupViewModel extends ViewModel {
     UserRepository userRepository;
 
     Disposable observeMembersDisposable;
+    Disposable observeIdsDisposable;
+
 
     private MutableLiveData<ArrayList<Group>> userGroups = new MutableLiveData<>();
-    private MutableLiveData<ArrayList<String>> userGroupIds = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<String>> userGroupIds = new MutableLiveData<>(new ArrayList<String>());
 
 
     @Inject
@@ -43,7 +45,12 @@ public class UserGroupViewModel extends ViewModel {
         observeUserGroups();
     }
 
-    private void observeUserGroupIds() {
+
+
+    public void observeUserGroupIds() {
+        if (observeIdsDisposable != null && !observeIdsDisposable.isDisposed()) {
+            observeIdsDisposable.dispose();
+        }
         groupRepository.getUserGroupIds()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -59,6 +66,10 @@ public class UserGroupViewModel extends ViewModel {
         userGroupIds.observeForever(groupIds -> {
             if (observeMembersDisposable != null && !observeMembersDisposable.isDisposed()) {
                 observeMembersDisposable.dispose();
+            }
+            if (groupIds.size() == 0){
+                userGroups.setValue(new ArrayList<Group>());
+                return;
             }
             observeMembersDisposable = groupRepository.getGroups(groupIds)
                     .subscribeOn(Schedulers.io())

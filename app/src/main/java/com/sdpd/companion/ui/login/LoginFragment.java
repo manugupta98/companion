@@ -54,18 +54,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 .build();
 
         googleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
-        observeLogin();
     }
 
-    private void observeLogin() {
-        userViewModel.getIsLoggedIn().observeForever(isLoggedIn -> {
-            if (isLoggedIn) {
-                NavController navController = Navigation.findNavController(getView());
-                NavDirections action = LoginFragmentDirections.actionLoginFragmentToHomeFragment();
-                navController.navigate(action);
-            }
-        });
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

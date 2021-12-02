@@ -59,6 +59,9 @@ public class FirebaseGroupSource {
     public Flowable<DataSnapshot> getUserGroupIds() {
         return Flowable.create(emitter -> {
             FirebaseUser user = firebaseAuth.getCurrentUser();
+            if (user == null){
+                return;
+            }
             mDatabase.child("/users/" + user.getUid() + "/groups/").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {

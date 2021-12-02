@@ -53,6 +53,7 @@ public class HomeFragment extends Fragment {
         adapter = new GroupRecyclerViewAdapter(getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        userGroupViewModel.observeUserGroupIds();
         observeGroups();
         return view;
     }
@@ -68,7 +69,5 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
-
-
 
 }
