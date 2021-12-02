@@ -15,10 +15,11 @@
         android:id="@+id/pitView"
         android:layout_width="wrap_content"
         android:layout_height="87dp"
+        android:layout_marginTop="10dp"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/elevatedView2"
         app:neuCornerRadius="30dp"
         app:pitColor="@color/neu_black" />
 
@@ -124,5 +125,25 @@
             android:textCursorDrawable="@drawable/cursor" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <club.cred.synth.views.ElevatedView
+        android:id="@+id/elevatedView2"
+        style="@style/neu_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:neuCornerRadius="50dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/group_icon"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toBottomOf="@+id/elevatedView2"
+        app:layout_constraintEnd_toEndOf="@+id/elevatedView2"
+        app:layout_constraintStart_toStartOf="@+id/elevatedView2"
+        app:layout_constraintTop_toTopOf="@+id/elevatedView2"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
