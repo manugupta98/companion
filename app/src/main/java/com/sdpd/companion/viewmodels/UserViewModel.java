@@ -50,7 +50,7 @@ public class UserViewModel extends ViewModel {
                 }, error -> {
                     user.setValue(null);
                     isLoggedIn.setValue(false);
-                    Log.d(TAG, error.getMessage());
+                    error.printStackTrace();
                 });
     }
 

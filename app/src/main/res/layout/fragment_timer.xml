@@ -10,27 +10,27 @@
 
     <club.cred.synth.views.PitView
         android:id="@+id/pitView"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
         android:layout_marginEnd="8dp"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/progressBar"
         app:layout_constraintEnd_toEndOf="@+id/progressBar"
         app:layout_constraintStart_toStartOf="@+id/progressBar"
         app:layout_constraintTop_toTopOf="@+id/progressBar"
-        app:neuCornerRadius="50dp"
+        app:neuCornerRadius="100dp"
         app:pitColor="@color/neu_black" />
 
     <club.cred.synth.views.ElevatedView
         style="@style/neu_button"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/pitView"
         app:layout_constraintEnd_toEndOf="@+id/pitView"
         app:layout_constraintStart_toStartOf="@+id/pitView"
         app:layout_constraintTop_toTopOf="@+id/pitView"
-        app:neuCornerRadius="50dp" />
+        app:neuCornerRadius="100dp" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progressBar"

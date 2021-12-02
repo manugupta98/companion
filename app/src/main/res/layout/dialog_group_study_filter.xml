@@ -11,97 +11,112 @@
     android:paddingRight="15dp"
     android:paddingBottom="10dp">
 
-    <club.cred.synth.views.PitView
-        android:id="@+id/pitView"
+    <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="87dp"
-        android:padding="10dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:neuCornerRadius="30dp"
-        app:pitColor="@color/neu_black" />
+        app:layout_constraintTop_toTopOf="parent">
 
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/group_study_filter_name_input_layout"
-        android:layout_width="match_parent"
-        android:layout_marginHorizontal="20dp"
-        android:layout_height="wrap_content"
-        android:background="@color/neu_black"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:textColorHint="@color/neu_gray"
-        app:boxStrokeWidth="0dp"
-        app:hintTextColor="@color/neu_red"
-        app:layout_constraintBottom_toBottomOf="@+id/pitView"
-        app:layout_constraintEnd_toEndOf="@+id/pitView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/pitView">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/group_study_filter_name_input"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/neu_black"
-            android:hint="Name"
-            android:singleLine="true"
-            android:textColor="@color/neu_white"
-            android:textCursorDrawable="@drawable/cursor" />
+            android:orientation="vertical"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbars="vertical">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <club.cred.synth.views.PitView
+                android:id="@+id/pitView"
+                android:layout_width="wrap_content"
+                android:layout_height="87dp"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:neuCornerRadius="30dp"
+                app:pitColor="@color/neu_black" />
 
-    <club.cred.synth.views.PitView
-        android:id="@+id/pitView1"
-        android:layout_width="wrap_content"
-        android:layout_height="87dp"
-        android:layout_marginTop="5dp"
-        android:padding="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pitView"
-        app:neuCornerRadius="30dp"
-        app:pitColor="@color/neu_black" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/group_study_filter_class_code_input_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:background="@color/neu_black"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:textColorHint="@color/neu_gray"
-        app:boxStrokeWidth="0dp"
-        app:hintTextColor="@color/neu_red"
-        app:layout_constraintBottom_toBottomOf="@+id/pitView1"
-        app:layout_constraintEnd_toEndOf="@+id/pitView1"
-        app:layout_constraintStart_toStartOf="@+id/pitView1"
-        app:layout_constraintTop_toTopOf="@+id/pitView1">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/group_study_filter_name_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:background="@color/neu_black"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textColorHint="@color/neu_gray"
+                app:boxStrokeWidth="0dp"
+                app:hintTextColor="@color/neu_red"
+                app:layout_constraintBottom_toBottomOf="@+id/pitView"
+                app:layout_constraintEnd_toEndOf="@+id/pitView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/pitView">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/group_study_filter_class_code_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/neu_black"
-            android:hint="Class code"
-            android:singleLine="true"
-            android:textColor="@color/neu_white"
-            android:textCursorDrawable="@drawable/cursor" />
-    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/group_study_filter_name_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/neu_black"
+                    android:hint="Name"
+                    android:singleLine="true"
+                    android:textColor="@color/neu_white"
+                    android:textCursorDrawable="@drawable/cursor" />
 
-    <CheckBox
-        android:id="@+id/group_study_filter_include_user_checkbox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:button="@null"
-        android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
-        android:paddingLeft="10dp"
-        android:text="Include joined groups"
-        android:textColor="@color/neu_white"
-        android:theme="@style/check"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/group_study_filter_class_code_input_layout" />
+            </com.google.android.material.textfield.TextInputLayout>
 
+            <club.cred.synth.views.PitView
+                android:id="@+id/pitView1"
+                android:layout_width="wrap_content"
+                android:layout_height="87dp"
+                android:layout_marginTop="5dp"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pitView"
+                app:neuCornerRadius="30dp"
+                app:pitColor="@color/neu_black" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/group_study_filter_class_code_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:background="@color/neu_black"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textColorHint="@color/neu_gray"
+                app:boxStrokeWidth="0dp"
+                app:hintTextColor="@color/neu_red"
+                app:layout_constraintBottom_toBottomOf="@+id/pitView1"
+                app:layout_constraintEnd_toEndOf="@+id/pitView1"
+                app:layout_constraintStart_toStartOf="@+id/pitView1"
+                app:layout_constraintTop_toTopOf="@+id/pitView1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/group_study_filter_class_code_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/neu_black"
+                    android:hint="Class code"
+                    android:singleLine="true"
+                    android:textColor="@color/neu_white"
+                    android:textCursorDrawable="@drawable/cursor" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <CheckBox
+                android:id="@+id/group_study_filter_include_user_checkbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:button="@null"
+                android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                android:paddingLeft="10dp"
+                android:text="Include joined groups"
+                android:textColor="@color/neu_white"
+                android:theme="@style/check"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/group_study_filter_class_code_input_layout" />
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

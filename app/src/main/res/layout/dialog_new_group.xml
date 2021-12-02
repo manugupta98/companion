@@ -1,149 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="15dp"
-    android:paddingTop="10dp"
-    android:clipChildren="false"
-    android:background="@color/neu_black"
-    android:paddingRight="15dp"
-    android:paddingBottom="10dp">
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content">
 
-    <club.cred.synth.views.PitView
-        android:id="@+id/pitView"
-        android:layout_width="wrap_content"
-        android:layout_height="87dp"
-        android:layout_marginTop="10dp"
-        android:padding="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/elevatedView2"
-        app:neuCornerRadius="30dp"
-        app:pitColor="@color/neu_black" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/group_study_name_input_layout"
-        android:layout_width="match_parent"
+    <LinearLayout
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:textColorHint="@color/neu_gray"
-        app:boxBackgroundColor="@color/neu_black"
-        app:boxStrokeWidth="0dp"
-        app:hintTextColor="@color/neu_red"
-        app:layout_constraintBottom_toBottomOf="@+id/pitView"
-        app:layout_constraintEnd_toEndOf="@+id/pitView"
-        app:layout_constraintStart_toStartOf="@+id/pitView"
-        app:layout_constraintTop_toTopOf="@+id/pitView">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/group_study_name_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Name"
-            android:singleLine="true"
-            android:textColor="@color/neu_white"
-            android:textCursorDrawable="@drawable/cursor" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <club.cred.synth.views.PitView
-        android:id="@+id/pitView1"
         android:layout_width="wrap_content"
-        android:layout_height="87dp"
-        android:layout_marginTop="5dp"
-        android:padding="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pitView"
-        app:neuCornerRadius="30dp"
-        app:pitColor="@color/neu_black" />
+        android:orientation="vertical"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbars="vertical">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/group_study_class_code_input_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:textColorHint="@color/neu_gray"
-        app:boxBackgroundColor="@color/neu_black"
-        app:boxStrokeWidth="0dp"
-        app:hintTextColor="@color/neu_red"
-        app:layout_constraintBottom_toBottomOf="@+id/pitView1"
-        app:layout_constraintEnd_toEndOf="@+id/pitView1"
-        app:layout_constraintStart_toStartOf="@+id/pitView1"
-        app:layout_constraintTop_toTopOf="@+id/pitView1">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/group_study_class_code_input"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Class code"
-            android:singleLine="true"
-            android:textColor="@color/neu_white"
-            android:textCursorDrawable="@drawable/cursor" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="match_parent"
+            android:background="@color/neu_black"
+            android:clipChildren="false"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="10dp">
 
-    <club.cred.synth.views.PitView
-        android:id="@+id/pitView2"
-        android:layout_width="wrap_content"
-        android:layout_height="87dp"
-        android:layout_marginTop="5dp"
-        android:padding="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pitView1"
-        app:neuCornerRadius="30dp"
-        app:pitColor="@color/neu_black" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/group_study_description_input_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:textColorHint="@color/neu_gray"
-        app:boxBackgroundColor="@color/neu_black"
-        app:boxStrokeWidth="0dp"
-        app:hintTextColor="@color/neu_red"
-        app:layout_constraintBottom_toBottomOf="@+id/pitView2"
-        app:layout_constraintEnd_toEndOf="@+id/pitView2"
-        app:layout_constraintStart_toStartOf="@+id/pitView2"
-        app:layout_constraintTop_toTopOf="@+id/pitView2">
+            <club.cred.synth.views.PitView
+                android:id="@+id/pitView"
+                android:layout_width="wrap_content"
+                android:layout_height="87dp"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/elevatedView2"
+                app:neuCornerRadius="30dp"
+                app:pitColor="@color/neu_black" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/group_study_description_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Description"
-            android:textColor="@color/neu_white"
-            android:textCursorDrawable="@drawable/cursor" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/group_study_name_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textColorHint="@color/neu_gray"
+                app:boxBackgroundColor="@color/neu_black"
+                app:boxStrokeWidth="0dp"
+                app:hintTextColor="@color/neu_red"
+                app:layout_constraintBottom_toBottomOf="@+id/pitView"
+                app:layout_constraintEnd_toEndOf="@+id/pitView"
+                app:layout_constraintStart_toStartOf="@+id/pitView"
+                app:layout_constraintTop_toTopOf="@+id/pitView">
 
-    <club.cred.synth.views.ElevatedView
-        android:id="@+id/elevatedView2"
-        style="@style/neu_image"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:neuCornerRadius="50dp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/group_study_name_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Name"
+                    android:singleLine="true"
+                    android:textColor="@color/neu_white"
+                    android:textCursorDrawable="@drawable/cursor" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/group_icon"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        app:layout_constraintBottom_toBottomOf="@+id/elevatedView2"
-        app:layout_constraintEnd_toEndOf="@+id/elevatedView2"
-        app:layout_constraintStart_toStartOf="@+id/elevatedView2"
-        app:layout_constraintTop_toTopOf="@+id/elevatedView2"
-        tools:srcCompat="@tools:sample/avatars" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <club.cred.synth.views.PitView
+                android:id="@+id/pitView1"
+                android:layout_width="wrap_content"
+                android:layout_height="87dp"
+                android:layout_marginTop="5dp"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pitView"
+                app:neuCornerRadius="30dp"
+                app:pitColor="@color/neu_black" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/group_study_class_code_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textColorHint="@color/neu_gray"
+                app:boxBackgroundColor="@color/neu_black"
+                app:boxStrokeWidth="0dp"
+                app:hintTextColor="@color/neu_red"
+                app:layout_constraintBottom_toBottomOf="@+id/pitView1"
+                app:layout_constraintEnd_toEndOf="@+id/pitView1"
+                app:layout_constraintStart_toStartOf="@+id/pitView1"
+                app:layout_constraintTop_toTopOf="@+id/pitView1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/group_study_class_code_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Class code"
+                    android:singleLine="true"
+                    android:textColor="@color/neu_white"
+                    android:textCursorDrawable="@drawable/cursor" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <club.cred.synth.views.PitView
+                android:id="@+id/pitView2"
+                android:layout_width="wrap_content"
+                android:layout_height="87dp"
+                android:layout_marginTop="5dp"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pitView1"
+                app:neuCornerRadius="30dp"
+                app:pitColor="@color/neu_black" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/group_study_description_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textColorHint="@color/neu_gray"
+                app:boxBackgroundColor="@color/neu_black"
+                app:boxStrokeWidth="0dp"
+                app:hintTextColor="@color/neu_red"
+                app:layout_constraintBottom_toBottomOf="@+id/pitView2"
+                app:layout_constraintEnd_toEndOf="@+id/pitView2"
+                app:layout_constraintStart_toStartOf="@+id/pitView2"
+                app:layout_constraintTop_toTopOf="@+id/pitView2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/group_study_description_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Description"
+                    android:textColor="@color/neu_white"
+                    android:textCursorDrawable="@drawable/cursor" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <club.cred.synth.views.ElevatedView
+                android:id="@+id/elevatedView2"
+                style="@style/neu_image"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:neuCornerRadius="50dp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/icon_image_view"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                app:layout_constraintBottom_toBottomOf="@+id/elevatedView2"
+                app:layout_constraintEnd_toEndOf="@+id/elevatedView2"
+                app:layout_constraintStart_toStartOf="@+id/elevatedView2"
+                app:layout_constraintTop_toTopOf="@+id/elevatedView2"
+                tools:srcCompat="@tools:sample/avatars" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</ScrollView>

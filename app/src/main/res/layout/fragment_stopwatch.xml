@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="@+id/progressBar"
         app:layout_constraintStart_toStartOf="@+id/progressBar"
         app:layout_constraintTop_toTopOf="@+id/progressBar"
-        app:neuCornerRadius="50dp"
+        app:neuCornerRadius="100dp"
         app:pitColor="@color/neu_black" />
 
     <club.cred.synth.views.ElevatedView
@@ -30,14 +30,16 @@
         app:layout_constraintEnd_toEndOf="@+id/pitView"
         app:layout_constraintStart_toStartOf="@+id/pitView"
         app:layout_constraintTop_toTopOf="@+id/pitView"
-        app:neuCornerRadius="50dp" />
+        app:neuCornerRadius="100dp" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="237dp"
-        app:indicatorSize="200dp"
+        app:indicatorSize="184dp"
+        app:trackThickness="8dp"
+        app:indicatorColor="@color/neu_red"
         app:layout_constraintBottom_toTopOf="@+id/stopwatch_button_group"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

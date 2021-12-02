@@ -1,5 +1,6 @@
 package com.sdpd.companion.data.repository;
 
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -122,8 +123,8 @@ public class GroupRepository {
 
     }
 
-    public void createGroup(String name, String classCode, String description) {
-        firebaseGroupSource.createGroup(name, classCode, description);
+    public Single<Group> createGroup(Uri imageUri, String mimeType, String name, String classCode, String description) {
+        return firebaseGroupSource.createGroup(imageUri,mimeType, name, classCode, description);
     }
 
     public Single<Group> getGroupById(String groupId) {

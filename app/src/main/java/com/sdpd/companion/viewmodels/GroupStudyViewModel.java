@@ -1,5 +1,6 @@
 package com.sdpd.companion.viewmodels;
 
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -17,6 +18,7 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
@@ -32,7 +34,7 @@ public class GroupStudyViewModel extends ViewModel {
     private MutableLiveData<ArrayList<Group>> filteredGroups = new MutableLiveData<>();
     private MutableLiveData<String> groupNameFilter = new MutableLiveData<>(null);
     private MutableLiveData<String> classCodeFilter = new MutableLiveData<>(null);
-    private  MutableLiveData<Boolean> userGroupsFilter = new MutableLiveData<>(false);
+    private MutableLiveData<Boolean> userGroupsFilter = new MutableLiveData<>(false);
 
     public MutableLiveData<String> getGroupNameFilter() {
         return groupNameFilter;
@@ -54,11 +56,11 @@ public class GroupStudyViewModel extends ViewModel {
         setFilter("", "", false);
     }
 
-    public void setFilter(String groupName, String classCode, Boolean filterUserGroups){
-        if (groupName.equals("")){
+    public void setFilter(String groupName, String classCode, Boolean filterUserGroups) {
+        if (groupName.equals("")) {
             groupName = null;
         }
-        if (classCode.equals("")){
+        if (classCode.equals("")) {
             classCode = null;
         }
         groupNameFilter.setValue(groupName);
@@ -79,14 +81,14 @@ public class GroupStudyViewModel extends ViewModel {
                 });
     }
 
-    public LiveData<ArrayList<Group>> getFilteredGroups(){
+    public LiveData<ArrayList<Group>> getFilteredGroups() {
         return filteredGroups;
     }
 
-    public void createGroup(String name, String classCode, String description) {
-        if (classCode.equals("")){
+    public Single<Group> createGroup(Uri imageUri, String mimeType, String name, String classCode, String description) {
+        if (classCode.equals("")) {
             classCode = null;
         }
-        groupRepository.createGroup(name, classCode, description);
+        return groupRepository.createGroup(imageUri, mimeType, name, classCode, description);
     }
 }

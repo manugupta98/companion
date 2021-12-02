@@ -45,6 +45,10 @@
         <action
             android:id="@+id/action_groupStudyFragment_to_groupInfoFragment"
             app:destination="@id/groupInfoFragment" />
+        <action
+            android:id="@+id/action_groupStudyFragment_to_chatFragment"
+            app:destination="@id/chatFragment"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
 
     <fragment

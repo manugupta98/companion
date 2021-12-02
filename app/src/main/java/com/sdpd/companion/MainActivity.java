@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +22,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navView;
     NavController navController;
 
+    ImageView userIcon;
+    TextView userNameTextView;
+
     UserViewModel userViewModel;
 
     @Override
@@ -51,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         toolbar = findViewById(R.id.toolbar);
         navView = findViewById(R.id.nav_view);
+
+        userIcon = navView.getHeaderView(0).findViewById(R.id.drawer_user_icon);
+        userNameTextView = navView.getHeaderView(0).findViewById(R.id.drawer_user_name);
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         AppBarConfiguration appBarConfiguration =
@@ -79,7 +88,24 @@ public class MainActivity extends AppCompatActivity {
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
+        initDrawer();
 //        observeLogin();
+    }
+
+    private void initDrawer() {
+        userViewModel.getUser().observeForever(user -> {
+            if (user != null) {
+                Log.d(TAG, "new user recieved");
+                Log.d(TAG, user.getDisplayName());
+                Glide.with(getBaseContext())
+                        .load(user.getPhotoUri())
+                        .placeholder(R.drawable.default_user_icon)
+                        .circleCrop()
+                        .into(userIcon);
+                userNameTextView.setText(user.getDisplayName());
+                Log.d(TAG, userNameTextView.getText().toString());
+            }
+        });
     }
 
 //    private void observeLogin() {

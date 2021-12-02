@@ -91,16 +91,36 @@ public class AnalyticsViewModel extends ViewModel {
         ;
     }
 
-    public void getBarChartData(String name){
+    public void getBarChartData(String name) {
         ArrayList<BarEntry> entries = new ArrayList<>();
         ArrayList<String> labels = new ArrayList<>();
+        if (name.equals("")){
+            barEntries.setValue(entries);
+            xLabels.setValue(labels);
+            return;
+        }
         int counter = 0;
-        TreeMap<String , Long> sortedEntries = new TreeMap((Map<String, Long>) data.get(name));
-        for (Map.Entry<String, Long> entry: sortedEntries.entrySet()){
+        TreeMap<String, Long> sortedEntries;
+        if (name.equals("All")) {
+            sortedEntries = new TreeMap();
+            for (String key : data.keySet()) {
+                for (Map.Entry<String, Long> entry : ((Map<String, Long>) data.get(key)).entrySet()) {
+                    if (sortedEntries.containsKey(entry.getKey())) {
+                        sortedEntries.put(entry.getKey(), sortedEntries.get(entry.getKey()) + entry.getValue());
+                    } else {
+                        sortedEntries.put(entry.getKey(), entry.getValue());
+                    }
+                }
+            }
+        } else {
+            sortedEntries = new TreeMap((Map<String, Long>) data.get(name));
+        }
+        for (Map.Entry<String, Long> entry : sortedEntries.entrySet()) {
             Log.d(TAG, entry.toString());
             entries.add(new BarEntry(counter++, entry.getValue()));
             labels.add(entry.getKey());
         }
+
         barEntries.setValue(entries);
         xLabels.setValue(labels);
     }

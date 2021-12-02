@@ -74,7 +74,7 @@ public class AnalyticsFragment extends Fragment {
         nameAdapter = new ArrayAdapter<String>(getContext(), R.layout.list_item);
         ((MaterialAutoCompleteTextView) nameDropdown.getEditText()).setAdapter(nameAdapter);
         ((MaterialAutoCompleteTextView) nameDropdown.getEditText()).setText("", false);
-        analyticsViewModel.fetchGroups("");
+        nameDropdown.setClickable(false);
         observeDropdown();
         return view;
     }
@@ -93,6 +93,7 @@ public class AnalyticsFragment extends Fragment {
                 barChart.setData(null);
                 barChart.invalidate();
                 barChart.clear();
+                nameDropdown.setClickable(true);
                 analyticsViewModel.fetchGroups(selectedType);
             }
         });
@@ -100,6 +101,7 @@ public class AnalyticsFragment extends Fragment {
         analyticsViewModel.getNames().observeForever(namesList -> {
             Log.d(TAG, namesList.toString());
             nameAdapter.clear();
+            nameAdapter.add("All");
             nameAdapter.addAll(namesList);
         });
 
