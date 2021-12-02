@@ -10,49 +10,49 @@
 
     <club.cred.synth.views.PitView
         android:id="@+id/pitView"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/timer_button_group"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:neuCornerRadius="200dp"
+        app:pitColor="@color/neu_black" />
+
+    <club.cred.synth.views.ElevatedView
+        android:id="@+id/elevatedView4"
+        style="@style/neu_button"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/progressBar"
         app:layout_constraintEnd_toEndOf="@+id/progressBar"
         app:layout_constraintStart_toStartOf="@+id/progressBar"
         app:layout_constraintTop_toTopOf="@+id/progressBar"
-        app:neuCornerRadius="50dp"
-        app:pitColor="@color/neu_black" />
-
-    <club.cred.synth.views.ElevatedView
-        style="@style/neu_button"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/pitView"
-        app:layout_constraintEnd_toEndOf="@+id/pitView"
-        app:layout_constraintStart_toStartOf="@+id/pitView"
-        app:layout_constraintTop_toTopOf="@+id/pitView"
-        app:neuCornerRadius="50dp" />
+        app:neuCornerRadius="100dp" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="237dp"
-        app:indicatorSize="200dp"
-
-        app:layout_constraintBottom_toTopOf="@+id/timer_button_group"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:indicatorSize="230dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pitView"
+        app:layout_constraintEnd_toEndOf="@+id/pitView"
+        app:layout_constraintStart_toStartOf="@+id/pitView"
+        app:layout_constraintTop_toTopOf="@+id/pitView"
+        app:trackColor="@color/neu_red" />
 
     <Chronometer
         android:id="@+id/chronometer_timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/neu_white"
-        android:textSize="40sp"
-        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
-        app:layout_constraintEnd_toEndOf="@+id/progressBar"
-        app:layout_constraintStart_toStartOf="@+id/progressBar"
-        app:layout_constraintTop_toTopOf="@+id/progressBar" />
+        android:textSize="35sp"
+        app:layout_constraintBottom_toBottomOf="@+id/elevatedView4"
+        app:layout_constraintEnd_toEndOf="@+id/elevatedView4"
+        app:layout_constraintStart_toStartOf="@+id/elevatedView4"
+        app:layout_constraintTop_toTopOf="@+id/elevatedView4" />
 
     <LinearLayout
         android:id="@+id/timer_button_group"
