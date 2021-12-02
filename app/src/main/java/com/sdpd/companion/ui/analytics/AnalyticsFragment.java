@@ -117,9 +117,7 @@ public class AnalyticsFragment extends Fragment {
             Log.d(TAG, entries.toString());
             Log.d(TAG, labels.toString());
             BarDataSet barDataSet = new BarDataSet(entries, "");
-            barDataSet.setStackLabels(labels.toArray(new String[0]));
-            barDataSet.setValueTextSize(15f);
-//            barDataSet.setColors(Color.DKGRAY, Color.LTGRAY);
+            barDataSet.setColors(getResources().getColor(R.color.neu_red), getResources().getColor(R.color.neu_white));
             BarData data = new BarData(barDataSet);
 //            data.setBarWidth(0.1f);
             barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
@@ -129,13 +127,21 @@ public class AnalyticsFragment extends Fragment {
             XAxis xAxis = barChart.getXAxis();
 //            xAxis.setCenterAxisLabels(false);
             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+            xAxis.setTextColor(getResources().getColor(R.color.neu_gray));
             xAxis.setDrawGridLines(false);
             xAxis.setDrawAxisLine(true);
 
             YAxis leftAxis = barChart.getAxisLeft();
             leftAxis.setLabelCount(5, false);
             leftAxis.setSpaceTop(20f);
+            leftAxis.setTextColor(getResources().getColor(R.color.neu_white));
             leftAxis.setAxisMinimum(0f);
+
+            YAxis rightAxis = barChart.getAxisRight();
+            rightAxis.setLabelCount(5, false);
+            rightAxis.setSpaceTop(20f);
+            rightAxis.setTextColor(getResources().getColor(R.color.neu_white));
+            rightAxis.setAxisMinimum(0f);
 
             barChart.setData(data);
             barChart.getDescription().setEnabled(false);

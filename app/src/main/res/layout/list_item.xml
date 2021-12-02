@@ -1,9 +1,10 @@
-<TextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/neu_black"
+    android:textColor="@color/neu_red"
     android:padding="16dp"
     android:ellipsize="end"
     android:maxLines="1"
-    android:textAppearance="?attr/textAppearanceSubtitle1"
-    />
+    android:textAppearance="?attr/textAppearanceSubtitle1" />

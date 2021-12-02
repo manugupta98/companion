@@ -60,4 +60,8 @@
     <style name="check">
         <item name="colorAccent">@color/neu_red</item>
     </style>
+
+    <style name="neu_drop_down"  parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="colorSurface">@color/neu_red</item>
+    </style>
 </resources>
