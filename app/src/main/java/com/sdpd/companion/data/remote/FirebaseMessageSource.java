@@ -67,9 +67,9 @@ public class FirebaseMessageSource {
 //        });
     }
 
-    public Flowable<DataSnapshot> getMessages(String groupId, int limit) {
+    public Flowable<DataSnapshot> getMessages(String groupId) {
         return Flowable.create(emitter -> {
-            mDatabase.child("messages/" + groupId).orderByChild("timestamp").limitToLast(limit).addValueEventListener(new ValueEventListener() {
+            mDatabase.child("messages/" + groupId).orderByChild("timestamp").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     emitter.onNext(snapshot);

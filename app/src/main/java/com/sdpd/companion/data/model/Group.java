@@ -52,7 +52,11 @@ public class Group {
 
         this.lastMessage = lastMessage;
         this.lastMessageSenderName = lastMessageSenderName;
-        this.lastMessageTime = lastMessageTime;
+        if (lastMessageTime != null) {
+            this.lastMessageTime = lastMessageTime;
+        } else {
+            this.lastMessageTime = 0L;
+        }
 
     }
 
@@ -99,7 +103,7 @@ public class Group {
         result.put("classCode", (classCode != null)? classCode : false);
         result.put("lastMessage", (lastMessage != null)? lastMessage : false);
         result.put("lastMessageSenderName", (lastMessageSenderName != null)? lastMessageSenderName : false);
-        result.put("lastMessageTime", (lastMessageTime != null)? lastMessageTime : false);
+        result.put("lastMessageTime", (lastMessageTime != 0L)? lastMessageTime : false);
 
         return result;
     }

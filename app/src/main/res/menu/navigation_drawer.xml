@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <group
         android:id="@+id/group1"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/groupStudyFragment"
-            android:title="@string/drawer_item_1"
-            android:checked="true" />
+            android:id="@+id/homeFragment"
+            android:checked="true"
+            android:title="@string/drawer_item_1" />
         <item
-            android:id="@+id/soloStudyFragment"
+            android:id="@+id/groupStudyFragment"
             android:title="@string/drawer_item_2" />
         <item
-            android:id="@+id/item3"
+            android:id="@+id/soloStudyFragment"
             android:title="@string/drawer_item_3" />
         <item
             android:id="@+id/analyticsFragment"

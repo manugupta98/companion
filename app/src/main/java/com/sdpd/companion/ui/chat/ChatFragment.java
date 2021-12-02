@@ -106,8 +106,8 @@ public class ChatFragment extends Fragment {
     private void observeMessages() {
         chatViewModel.getMessages().observeForever(newMessages -> {
             adapter.setMessages(newMessages);
-//            int newPosition = adapter.getItemCount() - 1;
-//            recyclerView.smoothScrollToPosition(newPosition);
+            int newPosition = adapter.getItemCount() - 1;
+            recyclerView.smoothScrollToPosition(newPosition);
         });
     }
 

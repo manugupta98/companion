@@ -4,9 +4,9 @@
     <string name="login_button">Login</string>
 
     <!-- Strings related to drawer -->
-    <string name="drawer_item_1">Group Study</string>
-    <string name="drawer_item_2">Solo Study</string>
-    <string name="drawer_item_3">Extras</string>
+    <string name="drawer_item_1">Home</string>
+    <string name="drawer_item_2">Group Study</string>
+    <string name="drawer_item_3">Solo Study</string>
     <string name="drawer_item_4">Dashboard</string>
     <string name="drawer_item_5">Logout</string>
     <string name="alert_dialog_ok">Confirm</string>

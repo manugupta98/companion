@@ -30,8 +30,10 @@ public class GroupStudyViewModel extends ViewModel {
     UserRepository userRepository;
 
     Disposable filteredGroupsDisposable;
+    Disposable userGroupIdsLiveDataDisposable;
 
     private MutableLiveData<ArrayList<Group>> filteredGroups = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<String>> userGroupIds = new MutableLiveData<>();
     private MutableLiveData<String> groupNameFilter = new MutableLiveData<>(null);
     private MutableLiveData<String> classCodeFilter = new MutableLiveData<>(null);
     private MutableLiveData<Boolean> userGroupsFilter = new MutableLiveData<>(false);
@@ -53,6 +55,7 @@ public class GroupStudyViewModel extends ViewModel {
     public GroupStudyViewModel(SavedStateHandle handle, GroupRepository groupRepository, UserRepository userRepository) {
         this.groupRepository = groupRepository;
         this.userRepository = userRepository;
+        observeUserGroupIds();
         setFilter("", "", false);
     }
 
@@ -67,18 +70,45 @@ public class GroupStudyViewModel extends ViewModel {
         classCodeFilter.setValue(classCode);
         userGroupsFilter.setValue(filterUserGroups);
         Log.d(TAG, "filter reset");
-        if (filteredGroupsDisposable != null && !filteredGroupsDisposable.isDisposed())
-            filteredGroupsDisposable.dispose();
-        filteredGroupsDisposable = groupRepository.getFilteredGroups(groupName, classCode, filterUserGroups)
+
+        observeFilteredGroups();
+
+    }
+
+    private void observeUserGroupIds() {
+        groupRepository.getUserGroupIds()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(groups -> {
-                    Log.d(TAG, "new grps recieved");
-                    filteredGroups.setValue(groups);
+                .subscribe(groupIds -> {
+                    userGroupIds.setValue(groupIds);
                 }, error -> {
                     Log.d(TAG, error.getMessage());
-                    filteredGroups.setValue(new ArrayList<>());
+                    userGroupIds.setValue(new ArrayList<String>());
                 });
+    }
+
+    private void observeFilteredGroups() {
+        String groupName = groupNameFilter.getValue();
+        String classCode = classCodeFilter.getValue();
+        Boolean filterUserGroups = userGroupsFilter.getValue();
+
+        if (userGroupIdsLiveDataDisposable != null && !userGroupIdsLiveDataDisposable.isDisposed())
+            userGroupIdsLiveDataDisposable.dispose();
+
+        userGroupIds.observeForever(groupIds -> {
+            if (filteredGroupsDisposable != null && !filteredGroupsDisposable.isDisposed())
+                filteredGroupsDisposable.dispose();
+            filteredGroupsDisposable = groupRepository.getFilteredGroups(groupIds, groupName, classCode, filterUserGroups)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(groups -> {
+                        Log.d(TAG, "new grps recieved");
+                        filteredGroups.setValue(groups);
+                    }, error -> {
+                        Log.d(TAG, error.getMessage());
+                        filteredGroups.setValue(new ArrayList<>());
+                    });
+        });
     }
 
     public LiveData<ArrayList<Group>> getFilteredGroups() {
