@@ -59,9 +59,8 @@ public class SoloStudyFragment extends Fragment {
         stopwatchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                soloStudyViewModel.setTopic(topicTextView.getText().toString());
                 NavController navController = Navigation.findNavController(view);
-                SoloStudyFragmentDirections.ActionSoloStudyFragmentToSoloStudyStopwatchFragment action = SoloStudyFragmentDirections.actionSoloStudyFragmentToSoloStudyStopwatchFragment(soloStudyViewModel.getTopic().getValue());
+                SoloStudyFragmentDirections.ActionSoloStudyFragmentToSoloStudyStopwatchFragment action = SoloStudyFragmentDirections.actionSoloStudyFragmentToSoloStudyStopwatchFragment(topicTextView.getText().toString());
                 navController.navigate(action);
             }
         });
@@ -71,9 +70,8 @@ public class SoloStudyFragment extends Fragment {
         timerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                soloStudyViewModel.setTopic(topicTextView.getText().toString());
                 NavController navController = Navigation.findNavController(view);
-                SoloStudyFragmentDirections.ActionSoloStudyFragmentToSoloStudyTimerFragment action = SoloStudyFragmentDirections.actionSoloStudyFragmentToSoloStudyTimerFragment(soloStudyViewModel.getTopic().getValue());
+                SoloStudyFragmentDirections.ActionSoloStudyFragmentToSoloStudyTimerFragment action = SoloStudyFragmentDirections.actionSoloStudyFragmentToSoloStudyTimerFragment(topicTextView.getText().toString());
                 navController.navigate(action);
             }
         });

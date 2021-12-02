@@ -31,9 +31,6 @@ public class GroupRepository {
     public GroupRepository(FirebaseGroupSource firebaseGroupSource, UserRepository userRepository) {
         this.firebaseGroupSource = firebaseGroupSource;
         this.userRepository = userRepository;
-//        firebaseGroupSource.createGroup("SDPD", "Group for SDPD", "CS F314");
-//        firebaseGroupSource.createGroup("ML", "Group for ML", null);
-//        firebaseGroupSource.createGroup("NLP", "Group for NLP", null);
     }
 
     private Group getGroupFromSnapshot(DataSnapshot snapshot) {
@@ -137,5 +134,9 @@ public class GroupRepository {
 
     public Completable joinGroup(String groupId) {
         return firebaseGroupSource.joinGroup(groupId);
+    }
+
+    public Completable leaveGroup(String groupId) {
+        return firebaseGroupSource.leaveGroup(groupId);
     }
 }

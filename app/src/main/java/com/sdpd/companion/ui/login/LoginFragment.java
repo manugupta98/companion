@@ -6,6 +6,9 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,6 +54,17 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 .build();
 
         googleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
+        observeLogin();
+    }
+
+    private void observeLogin() {
+        userViewModel.getIsLoggedIn().observeForever(isLoggedIn -> {
+            if (isLoggedIn) {
+                NavController navController = Navigation.findNavController(getView());
+                NavDirections action = LoginFragmentDirections.actionLoginFragmentToHomeFragment();
+                navController.navigate(action);
+            }
+        });
     }
 
     @Override

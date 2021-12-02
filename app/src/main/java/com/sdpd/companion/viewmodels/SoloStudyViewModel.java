@@ -23,11 +23,12 @@ public class SoloStudyViewModel extends ViewModel {
 
     private MutableLiveData<String> topic = new MutableLiveData<>("");
 
+
     private Chronometer chronometer;
     private boolean isChronometerRunning = false;
     private long timeWhenStopped = 0;
 
-    private long timeLeft = 3 * 60 * 1000;
+    private MutableLiveData<Long> timeLeft = new MutableLiveData<Long>(0L);
 
     public MutableLiveData<String> getTopic() {
         return topic;
@@ -69,40 +70,5 @@ public class SoloStudyViewModel extends ViewModel {
         timeWhenStopped = 0;
         chronometer.stop();
         isChronometerRunning = false;
-    }
-
-    public void setTopic(String topic){
-        this.topic.setValue(topic);
-    }
-
-    public void initTimer(Chronometer chronometer) {
-        this.chronometer = chronometer;
-        chronometer.setCountDown(true);
-        chronometer.setBase(SystemClock.elapsedRealtime() + timeLeft);
-    }
-
-    public void resetTimer() {
-        chronometer.setBase(SystemClock.elapsedRealtime());
-        timeLeft = 0;
-        chronometer.stop();
-        isChronometerRunning = false;
-    }
-
-    public void pauseTimer() {
-        if (isChronometerRunning) {
-            chronometer.stop();
-            timeLeft = chronometer.getBase() - SystemClock.elapsedRealtime();
-            isChronometerRunning = false;
-            Log.d(TAG, chronometer.getText().toString());
-        }
-    }
-
-    public void startTimer() {
-        if (!isChronometerRunning) {
-            chronometer.setBase(SystemClock.elapsedRealtime() + timeLeft);
-            chronometer.start();
-            isChronometerRunning = true;
-            Log.d(TAG, chronometer.getText().toString());
-        }
     }
 }
