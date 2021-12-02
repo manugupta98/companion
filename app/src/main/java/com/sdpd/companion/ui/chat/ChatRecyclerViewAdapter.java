@@ -82,10 +82,12 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             IncomingMessageViewHolder viewHolder = (IncomingMessageViewHolder) holder;
             viewHolder.messageText.setText(currentMessage.getMessage());
             viewHolder.timeTextView.setText(time);
+            viewHolder.senderTextView.setText(currentMessage.getSenderName());
         } else if (itemType == OUTGOING_MESSAGE) {
             OutgoingMessageViewHolder viewHolder = (OutgoingMessageViewHolder) holder;
             viewHolder.messageText.setText(currentMessage.getMessage());
             viewHolder.timeTextView.setText(time);
+            viewHolder.senderTextView.setText(currentMessage.getSenderName());
         }
     }
 
@@ -98,12 +100,14 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         TextView messageText;
         TextView timeTextView;
+        TextView senderTextView;
 
         public IncomingMessageViewHolder(@NonNull View itemView) {
             super(itemView);
 
             timeTextView = itemView.findViewById(R.id.message_time);
             messageText = itemView.findViewById(R.id.text_message);
+            senderTextView = itemView.findViewById(R.id.message_sender);
         }
     }
 
@@ -111,12 +115,14 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         TextView messageText;
         TextView timeTextView;
+        TextView senderTextView;
 
         public OutgoingMessageViewHolder(@NonNull View itemView) {
             super(itemView);
 
             timeTextView = itemView.findViewById(R.id.message_time);
             messageText = itemView.findViewById(R.id.text_message);
+            senderTextView = itemView.findViewById(R.id.message_sender);
         }
     }
 
