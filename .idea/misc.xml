@@ -9,8 +9,11 @@
         <entry key="app/src/main/res/drawable/border.xml" value="0.4041666666666667" />
         <entry key="app/src/main/res/drawable/cursor.xml" value="0.4041666666666667" />
         <entry key="app/src/main/res/drawable/ic_baseline_filter_alt_24.xml" value="0.4041666666666667" />
+        <entry key="app/src/main/res/drawable/ic_baseline_restore_24.xml" value="0.4041666666666667" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.4041666666666667" />
         <entry key="app/src/main/res/drawable/ic_send_message.xml" value="0.4041666666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21240942028985507" />
+        <entry key="app/src/main/res/layout/chat_toolbar_info.xml" value="0.26992753623188404" />
         <entry key="app/src/main/res/layout/dialog_group_study_filter.xml" value="0.5" />
         <entry key="app/src/main/res/layout/dialog_new_group.xml" value="0.23904382470119523" />
         <entry key="app/src/main/res/layout/dialog_time_picker.xml" value="0.45" />
@@ -31,6 +34,7 @@
         <entry key="app/src/main/res/layout/list_item_user.xml" value="0.21979166666666666" />
         <entry key="app/src/main/res/layout/speech_bubble_incoming.xml" value="0.45" />
         <entry key="app/src/main/res/layout/speech_bubble_outgoing.xml" value="0.30027173913043476" />
+        <entry key="app/src/main/res/menu/chat_group_info.xml" value="0.3880208333333333" />
         <entry key="app/src/main/res/menu/group_study_menu.xml" value="0.2203125" />
         <entry key="app/src/main/res/menu/navigation_drawer.xml" value="0.3880208333333333" />
       </map>
