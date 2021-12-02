@@ -73,7 +73,7 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         final int itemType = getItemViewType(position);
         Message currentMessage = messages.get(position);
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("h:m a");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("h:mm a");
         LocalDateTime localDateTime =
                 LocalDateTime.ofInstant(Instant.ofEpochMilli(currentMessage.getTimestamp()), ZoneId.systemDefault());
         String time = dtf.format(localDateTime);

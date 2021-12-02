@@ -53,4 +53,8 @@ public class UserViewModel extends ViewModel {
     public LiveData<User> getUser(){
         return user;
     }
+
+    public void logout() {
+        userRepository.logout();
+    }
 }

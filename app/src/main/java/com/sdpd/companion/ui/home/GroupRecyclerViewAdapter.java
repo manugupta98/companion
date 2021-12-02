@@ -62,7 +62,7 @@ public class GroupRecyclerViewAdapter extends RecyclerView.Adapter<GroupRecycler
             String text = group.getLastMessageSenderName() + ": " + group.getLastMessage();
             holder.groupDescriptionTextView.setText(text);
 
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("h:m a");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("h:mm a");
             LocalDateTime localDateTime =
                     LocalDateTime.ofInstant(Instant.ofEpochMilli(group.getLastMessageTime()), ZoneId.systemDefault());
             String time = dtf.format(localDateTime);

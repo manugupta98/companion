@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,6 +28,9 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,6 +57,16 @@ public class MainActivity extends AppCompatActivity {
     TextView userNameTextView;
 
     UserViewModel userViewModel;
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Log.d(TAG, "menu");
+        if (item.getItemId() == R.id.logout_button) {
+            Log.d(TAG, "logout");
+            userViewModel.logout();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +107,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Menu menuNav = navView.getMenu();
+
+        menuNav.findItem(R.id.logout_button).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Log.d(TAG, "logout");
+                userViewModel.logout();
+                GoogleSignInOptions gso = new GoogleSignInOptions.
+                        Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).
+                        build();
+
+                GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
+                googleSignInClient.signOut();
+                drawerLayout.closeDrawer(Gravity.LEFT);
+                return true;
+            }
+        });
+
+
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
         initDrawer();
@@ -118,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth.addAuthStateListener(auth -> {
             FirebaseUser firebaseUser = auth.getCurrentUser();
             User user = null;
-            if (firebaseUser == null){
+            if (firebaseUser == null) {
                 userViewModel.setUser(null);
             } else {
                 user = new User(firebaseUser.getUid(), firebaseUser.getDisplayName(), firebaseUser.getPhotoUrl().toString());

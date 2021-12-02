@@ -69,4 +69,8 @@ public class UserRepository {
             return users;
         });
     }
+
+    public void logout() {
+        firebaseAuthSource.logout();
+    }
 }
