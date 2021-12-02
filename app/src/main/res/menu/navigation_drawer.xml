@@ -17,8 +17,5 @@
         <item
             android:id="@+id/analyticsFragment"
             android:title="@string/drawer_item_4" />
-        <item
-            android:id="@+id/logout_button"
-            android:title="@string/drawer_item_5" />
     </group>
 </menu>
