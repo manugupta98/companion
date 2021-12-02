@@ -166,9 +166,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             } else {
                 if (navController.getCurrentDestination().getId() != R.id.loginFragment) {
-                    Log.d(TAG, "Login page opened");
-                    NavDirections action = HomeFragmentDirections.actionHomeFragmentToLoginFragment();
-                    navController.navigate(action);
+
+                    navController.navigate(R.id.loginFragment);
                 }
             }
         });
