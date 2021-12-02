@@ -15,6 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:minWidth="100dp"
+        android:backgroundTint="@color/neu_white"
         app:layout_constraintWidth_max="300dp"
         app:layout_constraintWidth_percent="0.7">
 
@@ -28,7 +29,7 @@
         android:paddingRight="10dp"
         android:paddingBottom="5dp"
         android:text="Hi, How are you?"
-        android:textColor="@color/neu_white"
+        android:textColor="@color/neu_red"
         android:textSize="16dp" />
 
         <TextView
@@ -40,7 +41,7 @@
             android:layout_marginBottom="5dp"
             android:text="19:30"
             android:textSize="13dp"
-            android:textColor="@color/neu_white" />
+            android:textColor="@color/neu_red" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
