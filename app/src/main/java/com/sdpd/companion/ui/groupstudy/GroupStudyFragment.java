@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -55,15 +56,29 @@ public class GroupStudyFragment extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.group_study_menu, menu);
+
+        ImageView studyFilter = (ImageView) menu.findItem(R.id.groupStudyFilterDialog).getActionView().findViewById(R.id.group_filter_button);
+        studyFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new GroupStudyFilterDialog().show(getParentFragmentManager(), "dialog");
+            }
+        });
+
+        ImageView newGroup = (ImageView) menu.findItem(R.id.newGroupDialog).getActionView().findViewById(R.id.new_group_button);
+        newGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new NewGroupDialog().show(getParentFragmentManager(), "dialog");
+            }
+        });
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.groupStudyFilterDialog) {
-            new GroupStudyFilterDialog().show(getParentFragmentManager(), "dialog");
             return true;
         } else if (item.getItemId() == R.id.newGroupDialog) {
-            new NewGroupDialog().show(getParentFragmentManager(), "dialog");
             return true;
         } else {
             return super.onOptionsItemSelected(item);

@@ -1,7 +1,5 @@
 package com.sdpd.companion.ui.solostudy;
 
-import android.media.AudioManager;
-import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -10,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -30,9 +29,9 @@ public class StopwatchFragment extends Fragment {
     StopwatchViewModel stopwatchViewModel;
     AnalyticsViewModel analyticsViewModel;
 
-    Button startButton;
-    Button pauseButton;
-    Button resetButton;
+    ImageView startButton;
+    ImageView pauseButton;
+    ImageView resetButton;
     Chronometer chronometer;
     CircularProgressIndicator circularProgressIndicator;
 
@@ -60,6 +59,8 @@ public class StopwatchFragment extends Fragment {
         chronometer = view.findViewById(R.id.chronometer_stopwatch);
         circularProgressIndicator = view.findViewById(R.id.progressBar);
 
+//        circularProgressIndicator.setIndicatorSize(1000);
+        circularProgressIndicator.setProgress(0);
         String topic = StopwatchFragmentArgs.fromBundle(getArguments()).getTopic();
 
         analyticsViewModel.setDetails("solo", topic);

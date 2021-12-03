@@ -111,6 +111,9 @@ public class GroupInfoFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         groupInfoViewModel.leaveGroup();
+                        NavController navController = Navigation.findNavController(getView());
+                        NavDirections action = GroupInfoFragmentDirections.actionGroupInfoFragmentToHomeFragment();
+                        navController.navigate(action);
                     }
                 });
 

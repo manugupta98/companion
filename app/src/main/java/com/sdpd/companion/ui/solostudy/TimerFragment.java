@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -31,9 +32,9 @@ public class TimerFragment extends Fragment {
     TimerViewModel timerViewModel;
     AnalyticsViewModel analyticsViewModel;
 
-    Button startButton;
-    Button pauseButton;
-    Button resetButton;
+    ImageView startButton;
+    ImageView pauseButton;
+    ImageView resetButton;
     Chronometer chronometer;
     CircularProgressIndicator circularProgressIndicator;
 
@@ -65,7 +66,6 @@ public class TimerFragment extends Fragment {
         analyticsViewModel.setDetails("solo", topic);
 
 //        circularProgressIndicator.setIndicatorSize(1000);
-        circularProgressIndicator.setProgress(20);
         chronometer.setCountDown(true);
         chronometer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +109,7 @@ public class TimerFragment extends Fragment {
             if (totalTime == 0){
                 circularProgressIndicator.setProgress(100);
             }else {
+
                 circularProgressIndicator.setProgress((int) ((100 * timeLeft) / totalTime), true);
             }
         });

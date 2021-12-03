@@ -7,4 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="neu_black">#1C1B1B</color>
+    <color name="neu_white">#EDEDED</color>
+    <color name="neu_blue">#4394D5</color>
+    <color name="neu_red">#D53B3B</color>
+    <color name="neu_gray">#6FEDEDED</color>
 </resources>

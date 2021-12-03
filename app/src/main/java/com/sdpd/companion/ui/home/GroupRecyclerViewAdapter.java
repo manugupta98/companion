@@ -18,6 +18,11 @@ import com.bumptech.glide.Glide;
 import com.sdpd.companion.R;
 import com.sdpd.companion.data.model.Group;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class GroupRecyclerViewAdapter extends RecyclerView.Adapter<GroupRecyclerViewAdapter.ViewHolder> {
@@ -56,9 +61,17 @@ public class GroupRecyclerViewAdapter extends RecyclerView.Adapter<GroupRecycler
         if (group.getLastMessageSenderName() != null) {
             String text = group.getLastMessageSenderName() + ": " + group.getLastMessage();
             holder.groupDescriptionTextView.setText(text);
+
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("h:mm a");
+            LocalDateTime localDateTime =
+                    LocalDateTime.ofInstant(Instant.ofEpochMilli(group.getLastMessageTime()), ZoneId.systemDefault());
+            String time = dtf.format(localDateTime);
+
+            holder.timeTextView.setText(time);
         } else {
             holder.groupDescriptionTextView.setText(group.getDescription());
         }
+
 
         holder.groupTile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +94,7 @@ public class GroupRecyclerViewAdapter extends RecyclerView.Adapter<GroupRecycler
         ImageView groupImageView;
         TextView groupTitleTextView;
         TextView groupDescriptionTextView;
+        TextView timeTextView;
         CardView groupTile;
 
 
@@ -90,6 +104,7 @@ public class GroupRecyclerViewAdapter extends RecyclerView.Adapter<GroupRecycler
             groupTitleTextView = itemView.findViewById(R.id.group_title);
             groupDescriptionTextView = itemView.findViewById(R.id.group_description);
             groupTile = itemView.findViewById(R.id.group_item_tile);
+            timeTextView = itemView.findViewById(R.id.group_last_message_time);
         }
     }
 

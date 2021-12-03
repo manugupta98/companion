@@ -8,9 +8,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:background="@color/neu_black">
 
-        <Button
+        <club.cred.synth.views.SynthButton
             android:id="@+id/loginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -18,7 +20,8 @@
             android:text="@string/login_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            style="@style/neu_button" />
 
         <TextView
             android:id="@+id/textView"
@@ -26,7 +29,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="cursive"
             android:text="@string/app_name"
-            android:textColor="#31AFE1"
+            android:textColor="@color/neu_red"
             android:textSize="48sp"
             app:layout_constraintBottom_toTopOf="@+id/loginButton"
             app:layout_constraintEnd_toEndOf="parent"

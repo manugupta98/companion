@@ -3,25 +3,49 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/neu_black"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="10dp"
     android:layout_width="match_parent"
+    android:clipChildren="false"
     android:layout_height="match_parent">
+
+    <club.cred.synth.views.PitView
+        android:id="@+id/pitView"
+        android:layout_width="220dp"
+        android:layout_height="87dp"
+        android:layout_marginBottom="120dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.448"
+        app:layout_constraintStart_toStartOf="parent"
+        app:neuCornerRadius="30dp"
+        app:pitColor="@color/neu_black" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/solo_study_topic_input_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="204dp">
+        android:layout_marginHorizontal="20dp"
+        android:textColorHint="@color/neu_gray"
+        app:boxBackgroundColor="@color/neu_black"
+        app:boxStrokeWidth="0dp"
+        app:hintTextColor="@color/neu_red"
+        app:layout_constraintBottom_toBottomOf="@+id/pitView"
+        app:layout_constraintEnd_toEndOf="@+id/pitView"
+        app:layout_constraintStart_toStartOf="@+id/pitView"
+        app:layout_constraintTop_toTopOf="@+id/pitView">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/solo_study_topic_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name"
-            android:singleLine="true" />
+            android:hint="Topic Name"
+            android:singleLine="true"
+            android:textColor="@color/neu_white"
+            android:textCursorDrawable="@drawable/cursor" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -29,23 +53,28 @@
         android:id="@+id/buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="296dp"
+        android:clipChildren="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/solo_study_topic_input_layout">
+        app:layout_constraintStart_toStartOf="parent">
 
-        <Button
+        <club.cred.synth.views.SynthButton
             android:id="@+id/timer_button"
-            style="?attr/materialButtonOutlinedStyle"
+            style="@style/neu_button"
+            android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
             android:text="Timer" />
 
-        <Button
+        <club.cred.synth.views.SynthButton
             android:id="@+id/stopwatch_button"
-            style="?attr/materialButtonOutlinedStyle"
+            style="@style/neu_button"
+            android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
             android:text="Stopwatch" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

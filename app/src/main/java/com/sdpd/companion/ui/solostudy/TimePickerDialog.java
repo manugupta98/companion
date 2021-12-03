@@ -32,6 +32,8 @@ public class TimePickerDialog extends DialogFragment {
 
     View view;
 
+    TextView timeTextView;
+
     TextView hourTextView;
     TextView minuteTextView;
     TextView secondsTextView;
@@ -56,7 +58,7 @@ public class TimePickerDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         view = getLayoutInflater().inflate(R.layout.dialog_time_picker, null);
-        AlertDialog alertDialog =  new AlertDialog.Builder(getContext())
+        AlertDialog alertDialog = new AlertDialog.Builder(getContext(), R.style.neu_dialog)
                 .setTitle("Time")
 //                .setIcon(R.drawable.ic_baseline_add_24)
                 .setView(view)

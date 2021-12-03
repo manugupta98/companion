@@ -3,13 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:clipChildren="false"
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chats_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="56dp"
+        android:background="@color/neu_black"
+        android:clipChildren="false"
+        android:paddingBottom="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <!--    <LinearLayout-->
@@ -35,32 +40,51 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/send_message_text"
-                android:layout_width="320dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="21dp"
-                android:layout_marginRight="21dp"
-                android:hint="type message..."
-                android:padding="17dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/send_button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></EditText>
-
-            <ImageButton
-                android:id="@+id/send_button"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_send_message"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/send_message_text"
-                app:layout_constraintTop_toTopOf="parent"></ImageButton>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 
+    <club.cred.synth.views.PitView
+        android:id="@+id/pitView"
+        android:layout_width="320dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/mylinearlayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:neuCornerRadius="30dp"
+        app:pitColor="@color/neu_black" />
+
+    <EditText
+        android:id="@+id/send_message_text"
+        android:layout_width="305dp"
+        android:layout_height="wrap_content"
+        android:hint="type message..."
+        android:padding="15dp"
+        android:textCursorDrawable="@drawable/cursor"
+        android:backgroundTint="@color/neu_black"
+        android:textColor="@color/neu_white"
+        android:textColorHint="@color/neu_gray"
+        app:layout_constraintBottom_toBottomOf="@+id/pitView"
+        app:layout_constraintEnd_toEndOf="@+id/pitView"
+        app:layout_constraintStart_toStartOf="@+id/pitView"
+        app:layout_constraintTop_toTopOf="@+id/pitView"></EditText>
+
+    <club.cred.synth.views.SynthImageButton
+        android:id="@+id/send_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/neu_red"
+        android:padding="10dp"
+        android:src="@drawable/ic_send_message"
+        android:tint="@color/neu_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.578"
+        app:layout_constraintStart_toEndOf="@+id/send_message_text"
+        app:neuButtonRadius="30dp"
+        app:neuButtonType="elevated_soft"
+        app:neuPlatformColor="@color/neu_red" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

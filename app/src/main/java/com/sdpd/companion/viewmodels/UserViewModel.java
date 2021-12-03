@@ -29,29 +29,11 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class UserViewModel extends ViewModel {
     private static final String TAG = "UserViewModel";
     private MutableLiveData<User> user = new MutableLiveData<>();
-    private  MutableLiveData<Boolean> isLoggedIn = new MutableLiveData<>();
     public UserRepository userRepository;
 
     @Inject
     public UserViewModel(UserRepository userRepository) {
         this.userRepository = userRepository;
-
-        observeCurrentUser();
-    }
-
-    private void observeCurrentUser(){
-        userRepository.getCurrentUser()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(newUser -> {
-                    Log.d(TAG, "loggedIn");
-                    user.setValue(newUser);
-                    isLoggedIn.setValue(true);
-                }, error -> {
-                    user.setValue(null);
-                    isLoggedIn.setValue(false);
-                    Log.d(TAG, error.getMessage());
-                });
     }
 
     public void signIn(String idToken) {
@@ -64,11 +46,15 @@ public class UserViewModel extends ViewModel {
                 });
     }
 
+    public void setUser(User user){
+        this.user.setValue(user);
+    }
+
     public LiveData<User> getUser(){
         return user;
     }
 
-    public MutableLiveData<Boolean> getIsLoggedIn() {
-        return isLoggedIn;
+    public void logout() {
+        userRepository.logout();
     }
 }

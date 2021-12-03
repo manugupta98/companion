@@ -22,8 +22,10 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/design_default_color_primary"
-                android:theme="@style/Widget.AppCompat.ActionBar" />
+                app:titleTextAppearance="@style/neu_title"
+                android:background="@color/neu_black"
+                app:titleTextColor="@color/neu_white"
+                android:theme="@style/Theme.Companion" />
 
             <fragment
                 android:id="@+id/nav_host_fragment"
@@ -43,6 +45,9 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/header_navigation_drawer"
         app:menu="@menu/navigation_drawer"
+        android:background="@color/neu_black"
+        app:itemTextColor="@color/neu_white"
+        app:itemTextAppearance="@style/neu_menu_item"
         android:fitsSystemWindows="false" >
 
     </com.google.android.material.navigation.NavigationView>

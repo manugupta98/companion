@@ -1,5 +1,6 @@
 package com.sdpd.companion.data.repository;
 
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -12,6 +13,7 @@ import com.sdpd.companion.data.remote.FirebaseUserSource;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -46,18 +48,8 @@ public class GroupRepository {
         );
     }
 
-    public Flowable<ArrayList<Group>> getUserGroups() {
-        final ArrayList<String> groupIds = new ArrayList<>();
-        firebaseGroupSource.getUserGroupIds().subscribe(snapshot -> {
-            groupIds.clear();
-            for (DataSnapshot child : snapshot.getChildren()) {
-                groupIds.add((String) child.getKey());
-            }
-        }, error -> {
-            groupIds.clear();
-        });
+    public Flowable<ArrayList<Group>> getGroups(ArrayList<String> groupIds) {
         return firebaseGroupSource.getGroups().map(snapshot -> {
-
             ArrayList<Group> groups = new ArrayList<>();
             for (DataSnapshot child : snapshot.getChildren()) {
                 Group tempGroup = getGroupFromSnapshot(child);
@@ -65,28 +57,20 @@ public class GroupRepository {
                     groups.add(tempGroup);
                 }
             }
+            groups.sort((Group a, Group b) -> {
+                return (a.getLastMessageTime() < b.getLastMessageTime())? 1: -1;
+            });
             return groups;
         });
     }
 
-    public Flowable<ArrayList<Group>> getFilteredGroups(String groupName, String classCode, Boolean filterUserGroups) {
-        final ArrayList<String> groupIds = new ArrayList<>();
-        if (!filterUserGroups) {
-            firebaseGroupSource.getUserGroupIds().subscribe(snapshot -> {
-                groupIds.clear();
-                for (DataSnapshot child : snapshot.getChildren()) {
-                    groupIds.add((String) child.getKey());
-                }
-            }, error -> {
-                groupIds.clear();
-            });
-        }
+    public Flowable<ArrayList<Group>> getFilteredGroups(ArrayList<String> groupIds, String groupName, String classCode, Boolean filterUserGroups) {
         return firebaseGroupSource.getGroups().map(snapshot -> {
             Log.d(TAG, groupName + " " + classCode + " " + filterUserGroups.toString());
             ArrayList<Group> groups = new ArrayList<>();
             for (DataSnapshot child : snapshot.getChildren()) {
                 Group tempGroup = getGroupFromSnapshot(child);
-                if (!groupIds.contains(tempGroup.getId())
+                if (filterUserGroups || !groupIds.contains(tempGroup.getId())
                         && checkFilter(tempGroup, groupName, classCode)
                         && (groupName == null || tempGroup.getName().toLowerCase().contains(groupName.toLowerCase()))
                         && (classCode == null || tempGroup.getClassCode().toLowerCase().contains(classCode.toLowerCase()))) {
@@ -94,6 +78,9 @@ public class GroupRepository {
                 }
             }
             Log.d(TAG, groups.toString());
+            groups.sort((Group a, Group b) -> {
+                return (a.getLastMessageTime() < b.getLastMessageTime())? 1: -1;
+            });
             return groups;
         });
     }
@@ -122,8 +109,8 @@ public class GroupRepository {
 
     }
 
-    public void createGroup(String name, String classCode, String description) {
-        firebaseGroupSource.createGroup(name, classCode, description);
+    public Single<Group> createGroup(Uri imageUri, String mimeType, String name, String classCode, String description) {
+        return firebaseGroupSource.createGroup(imageUri,mimeType, name, classCode, description);
     }
 
     public Single<Group> getGroupById(String groupId) {
@@ -138,5 +125,15 @@ public class GroupRepository {
 
     public Completable leaveGroup(String groupId) {
         return firebaseGroupSource.leaveGroup(groupId);
+    }
+
+    public Flowable<ArrayList<String>> getUserGroupIds() {
+        return firebaseGroupSource.getUserGroupIds().map(snapshot -> {
+            ArrayList<String> groupIds = new ArrayList<>();
+            for (DataSnapshot child : snapshot.getChildren()) {
+                groupIds.add((String) child.getKey());
+            }
+            return groupIds;
+        });
     }
 }

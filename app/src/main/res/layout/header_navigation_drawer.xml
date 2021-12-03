@@ -3,30 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="100dp"
+    android:clipChildren="false"
+    android:background="@color/neu_black">
 
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_weight="1"
+    <club.cred.synth.views.ElevatedView
+        android:id="@+id/elevatedView"
+        style="@style/neu_image"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:neuCornerRadius="50dp" />
+
+    <ImageView
+        android:id="@+id/drawer_user_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/elevatedView"
+        app:layout_constraintEnd_toEndOf="@+id/elevatedView"
+        app:layout_constraintStart_toStartOf="@+id/elevatedView"
+        app:layout_constraintTop_toTopOf="@+id/elevatedView"
+        android:layout_weight="1"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
+        android:id="@+id/drawer_user_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="36dp"
+        android:textSize="15sp"
         android:layout_weight="1"
         android:text="Title"
         android:textAppearance="?attr/textAppearanceHeadline6"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        android:textColor="@color/neu_red"
+        app:layout_constraintStart_toEndOf="@+id/elevatedView"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

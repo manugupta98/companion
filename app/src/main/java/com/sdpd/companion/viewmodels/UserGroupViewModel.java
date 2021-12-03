@@ -19,6 +19,7 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @HiltViewModel
@@ -28,29 +29,61 @@ public class UserGroupViewModel extends ViewModel {
     GroupRepository groupRepository;
     UserRepository userRepository;
 
+    Disposable observeMembersDisposable;
+    Disposable observeIdsDisposable;
+
+
     private MutableLiveData<ArrayList<Group>> userGroups = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<String>> userGroupIds = new MutableLiveData<>(new ArrayList<String>());
+
 
     @Inject
     public UserGroupViewModel(SavedStateHandle handle, GroupRepository groupRepository, UserRepository userRepository) {
         this.groupRepository = groupRepository;
         this.userRepository = userRepository;
+        observeUserGroupIds();
         observeUserGroups();
     }
 
-    private void observeUserGroups() {
-        groupRepository.getUserGroups()
+
+
+    public void observeUserGroupIds() {
+        if (observeIdsDisposable != null && !observeIdsDisposable.isDisposed()) {
+            observeIdsDisposable.dispose();
+        }
+        groupRepository.getUserGroupIds()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(groups -> {
-                    userGroups.setValue(groups);
+                .subscribe(groupIds -> {
+                    userGroupIds.setValue(groupIds);
                 }, error -> {
                     Log.d(TAG, error.getMessage());
-                    userGroups.setValue(new ArrayList<Group>());
+                    userGroupIds.setValue(new ArrayList<String>());
                 });
-//        Log.d(TAG, userGroups.getValue().get(0).getName());
     }
 
-    public LiveData<ArrayList<Group>> getUserGroups(){
+    private void observeUserGroups() {
+        userGroupIds.observeForever(groupIds -> {
+            if (observeMembersDisposable != null && !observeMembersDisposable.isDisposed()) {
+                observeMembersDisposable.dispose();
+            }
+            if (groupIds.size() == 0){
+                userGroups.setValue(new ArrayList<Group>());
+                return;
+            }
+            observeMembersDisposable = groupRepository.getGroups(groupIds)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(groups -> {
+                        userGroups.setValue(groups);
+                    }, error -> {
+                        Log.d(TAG, error.getMessage());
+                        userGroups.setValue(new ArrayList<Group>());
+                    });
+        });
+    }
+
+    public LiveData<ArrayList<Group>> getUserGroups() {
         return userGroups;
     }
 

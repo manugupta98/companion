@@ -11,6 +11,8 @@ import com.sdpd.companion.data.remote.FirebaseMessageSource;
 import com.sdpd.companion.data.remote.FirebaseUserSource;
 import com.sdpd.companion.data.repository.MessageRepository;
 import com.sdpd.companion.data.repository.UserRepository;
+import com.sdpd.companion.ui.chat.ChatFragmentArgs;
+import com.sdpd.companion.ui.solostudy.TimerFragmentArgs;
 
 import java.util.ArrayList;
 
@@ -53,8 +55,10 @@ public class ChatViewModel extends ViewModel {
                 if (groupId.getValue() == null){
                     return;
                 }
-                messageRepository.getMessages(groupId.getValue(), 100).subscribe(newMessages -> {
+                messageRepository.getMessages(groupId.getValue()).subscribe(newMessages -> {
                     messages.setValue(newMessages);
+                }, error -> {
+                    messages.setValue(new ArrayList<>());
                 });
             }
         });

@@ -16,6 +16,12 @@ import com.sdpd.companion.data.model.Group;
 import com.sdpd.companion.data.model.Message;
 import com.sdpd.companion.data.model.User;
 
+import org.w3c.dom.Text;
+
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -67,12 +73,20 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         final int itemType = getItemViewType(position);
         Message currentMessage = messages.get(position);
 
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("h:mm a");
+        LocalDateTime localDateTime =
+                LocalDateTime.ofInstant(Instant.ofEpochMilli(currentMessage.getTimestamp()), ZoneId.systemDefault());
+        String time = dtf.format(localDateTime);
+
         if (itemType == INCOMING_MESSAGE) {
             IncomingMessageViewHolder viewHolder = (IncomingMessageViewHolder) holder;
             viewHolder.messageText.setText(currentMessage.getMessage());
+            viewHolder.timeTextView.setText(time);
+            viewHolder.senderTextView.setText(currentMessage.getSenderName());
         } else if (itemType == OUTGOING_MESSAGE) {
             OutgoingMessageViewHolder viewHolder = (OutgoingMessageViewHolder) holder;
             viewHolder.messageText.setText(currentMessage.getMessage());
+            viewHolder.timeTextView.setText(time);
         }
     }
 
@@ -84,21 +98,27 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     public class IncomingMessageViewHolder extends RecyclerView.ViewHolder {
 
         TextView messageText;
+        TextView timeTextView;
+        TextView senderTextView;
 
         public IncomingMessageViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            timeTextView = itemView.findViewById(R.id.message_time);
             messageText = itemView.findViewById(R.id.text_message);
+            senderTextView = itemView.findViewById(R.id.message_sender);
         }
     }
 
     public class OutgoingMessageViewHolder extends RecyclerView.ViewHolder {
 
         TextView messageText;
+        TextView timeTextView;
 
         public OutgoingMessageViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            timeTextView = itemView.findViewById(R.id.message_time);
             messageText = itemView.findViewById(R.id.text_message);
         }
     }

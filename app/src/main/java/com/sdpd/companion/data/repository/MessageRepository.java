@@ -52,8 +52,8 @@ public class MessageRepository {
         );
     }
 
-    public Flowable<ArrayList<Message>> getMessages(String groupId, int limit){
-        return firebaseMessageSource.getMessages(groupId, limit).map(snapshot -> {
+    public Flowable<ArrayList<Message>> getMessages(String groupId){
+        return firebaseMessageSource.getMessages(groupId).map(snapshot -> {
             ArrayList<Message> messages = new ArrayList<>();
             for (DataSnapshot child : snapshot.getChildren()) {
                 messages.add(getMessageFromSnapshot(child));
